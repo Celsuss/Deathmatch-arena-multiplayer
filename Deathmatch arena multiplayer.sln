@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer.Plugins", "Deathmatch arena multiplayer.Plugins.csproj", "{FF85C4E6-80E2-B534-F8D4-8F225E22DE71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer", "Deathmatch arena multiplayer.csproj", "{73DB5B64-D3D1-6F32-6352-88CFC1E8A6B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer.Editor.Plugins", "Deathmatch arena multiplayer.Editor.Plugins.csproj", "{45706C95-FF73-1646-E8D7-ECB6DE07E2FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF85C4E6-80E2-B534-F8D4-8F225E22DE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF85C4E6-80E2-B534-F8D4-8F225E22DE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF85C4E6-80E2-B534-F8D4-8F225E22DE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF85C4E6-80E2-B534-F8D4-8F225E22DE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73DB5B64-D3D1-6F32-6352-88CFC1E8A6B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73DB5B64-D3D1-6F32-6352-88CFC1E8A6B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73DB5B64-D3D1-6F32-6352-88CFC1E8A6B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73DB5B64-D3D1-6F32-6352-88CFC1E8A6B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45706C95-FF73-1646-E8D7-ECB6DE07E2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45706C95-FF73-1646-E8D7-ECB6DE07E2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45706C95-FF73-1646-E8D7-ECB6DE07E2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45706C95-FF73-1646-E8D7-ECB6DE07E2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
