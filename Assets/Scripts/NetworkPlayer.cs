@@ -15,9 +15,11 @@ public class NetworkPlayer : NetworkBehaviour {
 
 	[SerializeField] float m_RespawnTime = 1f;
 	GameObject m_MainCamera;
+	NetworkAnimator m_Anim;
 
 	// Use this for initialization
 	void Start () {
+		m_Anim = GetComponent<NetworkAnimator>();
 		m_MainCamera = Camera.main.gameObject;
 		EnablePlayer();
 	}
@@ -56,13 +58,18 @@ public class NetworkPlayer : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		if(!isLocalPlayer) return;
+
+		m_Anim.animator.SetFloat("Forward", Input.GetAxis("Vertical"));
+		//m_Anim.animator.SetFloat("Strafe", Input.GetAxis("Horizontal"));
 	}
 
 	public void Die(){
 		if(isLocalPlayer){
 			PlayerUI.Instance.WriteGameStatusText("You died");
 			PlayerUI.Instance.PlayDeathAudio();
+
+			m_Anim.SetTrigger("Died");
 		}
 
 		DisablePlayer();
