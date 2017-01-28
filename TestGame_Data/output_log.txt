@@ -21,19 +21,14 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.045 seconds
+- Completed reload, in  0.089 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.806758 ms
+UnloadTime: 1.320109 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1ca8 -> priority: 1 
-  Thread -> id: 3534 -> priority: 1 
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:7777}
-ClientDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+  Thread -> id: 4364 -> priority: 1 
+  Thread -> id: 13f4 -> priority: 1 

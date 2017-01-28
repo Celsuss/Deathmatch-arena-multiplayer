@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class PlayerHealth : NetworkBehaviour {
 
 	[SerializeField] int m_MaxHealth = 3;
-	int m_Health;
+	[SyncVar (hook = "OnHealthChanged")] int m_Health;
 	NetworkPlayer m_Player;
 
 	void Awake(){
@@ -41,8 +41,19 @@ public class PlayerHealth : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcTakeDamage(bool died){
+		if(isLocalPlayer){
+			// Some ui flash effect for taking damage
+			// PlayerUI.Instance.PlayerSomeEffect()
+		}
+
 		if(died){
 			m_Player.Die();
 		}
+	}
+
+	void OnHealthChanged(int value){
+		m_Health = value;
+		if(isLocalPlayer)
+			PlayerUI.Instance.SetHealth(value);
 	}
 }

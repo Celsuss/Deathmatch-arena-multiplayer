@@ -23,9 +23,14 @@ public class NetworkPlayer : NetworkBehaviour {
 	}
 
 	void EnablePlayer(){
-		m_OnToggleShared.Invoke(true);
 		if(isLocalPlayer){
+			PlayerUI.Instance.Initialize();
 			m_MainCamera.SetActive(false);
+		}
+
+		m_OnToggleShared.Invoke(true);
+
+		if(isLocalPlayer){
 			m_OnToggleLocal.Invoke(true);
 		}
 		else{
@@ -34,9 +39,14 @@ public class NetworkPlayer : NetworkBehaviour {
 	}
 	
 	void DisablePlayer(){
-		m_OnToggleShared.Invoke(false);
 		if(isLocalPlayer){
+			PlayerUI.Instance.HideCrosshair();
 			m_MainCamera.SetActive(true);
+		}
+
+		m_OnToggleShared.Invoke(false);
+
+		if(isLocalPlayer){
 			m_OnToggleLocal.Invoke(false);
 		}
 		else{
@@ -50,6 +60,11 @@ public class NetworkPlayer : NetworkBehaviour {
 	}
 
 	public void Die(){
+		if(isLocalPlayer){
+			PlayerUI.Instance.WriteGameStatusText("You died");
+			PlayerUI.Instance.PlayDeathAudio();
+		}
+
 		DisablePlayer();
 		Invoke("Respawn", m_RespawnTime);
 	}

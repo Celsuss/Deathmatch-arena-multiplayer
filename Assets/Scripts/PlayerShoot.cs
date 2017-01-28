@@ -8,6 +8,7 @@ public class PlayerShoot : NetworkBehaviour {
 	[SerializeField] float m_ShootCooldown = 0.3f;
 	[SerializeField] Transform m_FirePosition;
 	[SerializeField] float m_Range = 50f;
+	[SyncVar (hook = "OnScoreChange")] int m_Score;
 	float m_ElapsedTime = 0;
 	bool m_CanShoot;
 
@@ -17,6 +18,11 @@ public class PlayerShoot : NetworkBehaviour {
 			m_CanShoot = true;
 		else
 			m_CanShoot = false;
+	}
+
+	[ServerCallback]
+	void OnEnable(){
+		m_Score = 0;
 	}
 	
 	// Update is called once per frame
@@ -39,8 +45,11 @@ public class PlayerShoot : NetworkBehaviour {
 		
 		if(result){
 			PlayerHealth enemy = hit.transform.GetComponent<PlayerHealth>();
-			if(enemy)
-				enemy.TakeDamage();
+			if(enemy){
+				if(enemy.TakeDamage()) {	//TakeDamage() returns true if enemy died
+					m_Score++;
+				}
+			}
 		}
 		RpcProcessShotEffects(result, hit.point); 
 	}
@@ -49,6 +58,13 @@ public class PlayerShoot : NetworkBehaviour {
 	void RpcProcessShotEffects(bool hit, Vector3 point){
 		if(hit){
 			//Add hit particle effect at point and play sound at point
+		}
+	}
+
+	void OnScoreChange(int value){
+		m_Score = value;
+		if(isLocalPlayer){
+			PlayerUI.Instance.SetKills(value);
 		}
 	}
 }
