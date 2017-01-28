@@ -69,7 +69,7 @@ public class NetworkPlayer : NetworkBehaviour {
 			PlayerUI.Instance.WriteGameStatusText("You died");
 			PlayerUI.Instance.PlayDeathAudio();
 
-			m_Anim.SetTrigger("Died");
+			//m_Anim.SetTrigger("Died");
 		}
 
 		DisablePlayer();
