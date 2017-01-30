@@ -7,15 +7,20 @@ public class WeaponPlacement : NetworkBehaviour {
 
 	[SerializeField] Transform m_CameraTransform;
 	[SerializeField] Transform m_Hand;
+	[SerializeField] Transform m_RightHand;
+	[SerializeField] Transform m_LeftHand;
 	[SerializeField] Transform m_GunPivot;
 	[SerializeField] float m_Treshold = 10f;
 	[SerializeField] float m_Smoothing = 5f;
 	[SyncVar] float m_Pitch;
 	Vector3 m_LastOffset;
 	float m_LastSyncedPitch;
+	Animator m_Anim;
 
 	// Use this for initialization
 	void Start () {
+		m_Anim = GetComponent<Animator>();
+
 		if(isLocalPlayer){
 			m_GunPivot.parent = m_CameraTransform;
 		}
@@ -45,5 +50,17 @@ public class WeaponPlacement : NetworkBehaviour {
 	[Command]
 	void CmdUpdatePitch(float newPitch){
 		m_Pitch = newPitch;
+	}
+
+	void OnAnimatorIK(){
+		m_Anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+		m_Anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+		m_Anim.SetIKPosition(AvatarIKGoal.RightHand, m_RightHand.position);
+		m_Anim.SetIKRotation(AvatarIKGoal.RightHand, m_RightHand.rotation);
+
+		m_Anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+		m_Anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+		m_Anim.SetIKPosition(AvatarIKGoal.LeftHand, m_LeftHand.position);
+		m_Anim.SetIKRotation(AvatarIKGoal.LeftHand, m_LeftHand.rotation);
 	}
 }

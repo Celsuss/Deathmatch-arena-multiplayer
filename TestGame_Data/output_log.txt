@@ -21,18 +21,36 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.036 seconds
+- Completed reload, in  0.383 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.777251 ms
+UnloadTime: 1.479189 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2424 -> priority: 1 
-  Thread -> id: 1f58 -> priority: 1 
-Spawn scene object not found for 1
+  Thread -> id: 2c30 -> priority: 1 
+  Thread -> id: 38f4 -> priority: 1 
+MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MatchMakingClient Join :https://mm.unet.unity3d.com/json/reply/JoinMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 447)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 447)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.761429 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1355.
+Total: 1.060535 ms (FindLiveObjects: 0.052171 ms CreateObjectMapping: 0.056020 ms MarkObjects: 0.941652 ms  DeleteObjects: 0.010263 ms)
 
