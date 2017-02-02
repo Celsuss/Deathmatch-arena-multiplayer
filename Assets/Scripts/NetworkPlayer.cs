@@ -9,11 +9,14 @@ public class ToggleEvent : UnityEvent<bool>{}
 
 public class NetworkPlayer : NetworkBehaviour {
 
+	[SyncVar (hook = "OnNameChanged")] public string m_PlayerName;
+	[SyncVar (hook = "OnColorChanged")] public Color m_PlayerColor;
+
 	[SerializeField] ToggleEvent m_OnToggleShared;
 	[SerializeField] ToggleEvent m_OnToggleLocal;
 	[SerializeField] ToggleEvent m_OnToggleRemote;
-
 	[SerializeField] float m_RespawnTime = 1f;
+
 	GameObject m_MainCamera;
 	NetworkAnimator m_Anim;
 
@@ -83,5 +86,16 @@ public class NetworkPlayer : NetworkBehaviour {
 			transform.rotation = spawn.rotation;	
 		}
 		EnablePlayer();
+	}
+
+	void OnNameChanged(string value){
+		m_PlayerName = value;
+		gameObject.name = m_PlayerName;
+		// Set UI text
+	}
+
+	void OnColorChanged(Color value){
+		m_PlayerColor = value;
+		GetComponentInChildren<RendererToggler>().ChangeColor(m_PlayerColor);
 	}
 }

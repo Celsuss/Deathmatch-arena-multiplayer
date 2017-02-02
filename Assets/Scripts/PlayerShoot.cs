@@ -40,7 +40,7 @@ public class PlayerShoot : NetworkBehaviour {
 	void CmdFireShot(Vector3 pos, Vector3 direction){
 		RaycastHit hit;
 		Ray ray = new Ray(pos, direction);
-		Debug.DrawRay(pos, direction * 3f, Color.red, 1f);
+		Debug.DrawRay(pos, direction * 10f, Color.red, 1f);
 		bool result = Physics.Raycast(ray, out hit, m_Range);
 		
 		if(result){

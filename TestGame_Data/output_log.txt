@@ -21,17 +21,17 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.383 seconds
+- Completed reload, in  0.131 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+desktop: 1920x1080 59Hz; virtual: 3286x1080 at -1366,0
 <RI> Initialized touch support.
-UnloadTime: 1.479189 ms
+UnloadTime: 1.994060 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2c30 -> priority: 1 
-  Thread -> id: 38f4 -> priority: 1 
+  Thread -> id: 13f4 -> priority: 1 
+  Thread -> id: 3184 -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -49,8 +49,8 @@ DontDestroyOnLoad only work for root GameObjects or components on root GameObjec
 (Filename:  Line: 447)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.761429 ms
+UnloadTime: 2.065475 ms
 
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1355.
-Total: 1.060535 ms (FindLiveObjects: 0.052171 ms CreateObjectMapping: 0.056020 ms MarkObjects: 0.941652 ms  DeleteObjects: 0.010263 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1359.
+Total: 2.861730 ms (FindLiveObjects: 0.132566 ms CreateObjectMapping: 0.099638 ms MarkObjects: 2.616268 ms  DeleteObjects: 0.011973 ms)
 
