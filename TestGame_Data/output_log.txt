@@ -22,7 +22,11 @@ Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Completed reload, in  0.131 seconds
+=======
+- Completed reload, in  0.038 seconds
+>>>>>>> parent of a2caec0... Networked weapon rotation
 =======
 - Completed reload, in  0.038 seconds
 >>>>>>> parent of a2caec0... Networked weapon rotation
@@ -32,6 +36,7 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 <RI> Input initialized.
 desktop: 1920x1080 59Hz; virtual: 3286x1080 at -1366,0
 <RI> Initialized touch support.
+<<<<<<< HEAD
 <<<<<<< HEAD
 UnloadTime: 1.994060 ms
 Setting up 2 worker threads for Enlighten.
@@ -62,6 +67,10 @@ Total: 2.861730 ms (FindLiveObjects: 0.132566 ms CreateObjectMapping: 0.099638 m
 =======
 UnloadTime: 1.461656 ms
 Setting up 2 worker threads for Enlighten.
+=======
+UnloadTime: 1.461656 ms
+Setting up 2 worker threads for Enlighten.
+>>>>>>> parent of a2caec0... Networked weapon rotation
   Thread -> id: 3118 -> priority: 1 
   Thread -> id: 34c4 -> priority: 1 
 Spawn scene object not found for 1
@@ -73,4 +82,7 @@ ClientDisconnected due to error: Timeout
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+<<<<<<< HEAD
+>>>>>>> parent of a2caec0... Networked weapon rotation
+=======
 >>>>>>> parent of a2caec0... Networked weapon rotation
