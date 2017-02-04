@@ -67,4 +67,8 @@ public class PlayerShoot : NetworkBehaviour {
 			PlayerUI.Instance.SetKills(value);
 		}
 	}
+
+	public void FireAsBot(){
+		CmdFireShot(m_FirePosition.position, m_FirePosition.forward);
+	}
 }

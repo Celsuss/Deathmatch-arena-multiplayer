@@ -5,17 +5,6 @@ using UnityEngine.Networking;
 using Prototype.NetworkLobby;
 
 public class PlayerLobbyHook : LobbyHook {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer){
 		LobbyPlayer lPlayer = lobbyPlayer.GetComponent<LobbyPlayer>();
 		NetworkPlayer gPlayer = gamePlayer.GetComponent<NetworkPlayer>();

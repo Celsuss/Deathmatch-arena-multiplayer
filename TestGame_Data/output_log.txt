@@ -21,17 +21,17 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.088 seconds
+- Completed reload, in  0.240 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1920x1080 59Hz; virtual: 3286x1080 at -1366,0
+desktop: 1920x1080 60Hz; virtual: 3286x1080 at -1366,0
 <RI> Initialized touch support.
-UnloadTime: 2.068040 ms
+UnloadTime: 1.767413 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 27dc -> priority: 1 
-  Thread -> id: 2bdc -> priority: 1 
+  Thread -> id: 1e98 -> priority: 1 
+  Thread -> id: 2894 -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -49,27 +49,8 @@ DontDestroyOnLoad only work for root GameObjects or components on root GameObjec
 (Filename:  Line: 447)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.158271 ms
+UnloadTime: 2.140311 ms
 
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1359.
-Total: 2.694098 ms (FindLiveObjects: 0.076974 ms CreateObjectMapping: 0.070987 ms MarkObjects: 2.534590 ms  DeleteObjects: 0.011118 ms)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.28.9.224:9999}
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-ClientDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-UnloadTime: 1.576261 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1154.
-Total: 1.558300 ms (FindLiveObjects: 0.083816 ms CreateObjectMapping: 0.097073 ms MarkObjects: 1.166159 ms  DeleteObjects: 0.210823 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1367.
+Total: 2.242088 ms (FindLiveObjects: 0.067993 ms CreateObjectMapping: 0.067138 ms MarkObjects: 2.093271 ms  DeleteObjects: 0.013256 ms)
 

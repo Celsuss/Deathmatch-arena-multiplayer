@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Events;
 
@@ -91,7 +92,7 @@ public class NetworkPlayer : NetworkBehaviour {
 	void OnNameChanged(string value){
 		m_PlayerName = value;
 		gameObject.name = m_PlayerName;
-		// Set UI text
+		GetComponentInChildren<Text>(true).text = m_PlayerName;
 	}
 
 	void OnColorChanged(Color value){
