@@ -2,10 +2,10 @@ Initialize engine version: 5.5.0f3 (38b4efef76f0)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
-    Vendor:   Intel
-    VRAM:     912 MB
-    Driver:   10.18.13.5354
+    Renderer: NVIDIA GeForce GT 630M (ID=0xde9)
+    Vendor:   NVIDIA
+    VRAM:     2000 MB
+    Driver:   21.21.13.7849
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -21,17 +21,17 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.240 seconds
+- Completed reload, in  0.180 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1920x1080 60Hz; virtual: 3286x1080 at -1366,0
+desktop: 1920x1080 59Hz; virtual: 3286x1080 at -1366,0
 <RI> Initialized touch support.
-UnloadTime: 1.767413 ms
+UnloadTime: 1.890140 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1e98 -> priority: 1 
-  Thread -> id: 2894 -> priority: 1 
+  Thread -> id: cf8 -> priority: 1 
+  Thread -> id: 2860 -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -49,8 +49,8 @@ DontDestroyOnLoad only work for root GameObjects or components on root GameObjec
 (Filename:  Line: 447)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.140311 ms
+UnloadTime: 1.831127 ms
 
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1367.
-Total: 2.242088 ms (FindLiveObjects: 0.067993 ms CreateObjectMapping: 0.067138 ms MarkObjects: 2.093271 ms  DeleteObjects: 0.013256 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1381.
+Total: 2.387478 ms (FindLiveObjects: 0.131711 ms CreateObjectMapping: 0.147533 ms MarkObjects: 2.093266 ms  DeleteObjects: 0.014111 ms)
 

@@ -18,10 +18,9 @@ public class PlayerHealth : NetworkBehaviour {
 		m_Health = m_MaxHealth;
 	}
 
-	// Use this for initialization
-	[ServerCallback]
+	//[ServerCallback]
 	void Start () {
-		m_Health = m_MaxHealth;
+		OnHealthChanged(m_MaxHealth);
 	}
 	
 	// Update is called once per frame
