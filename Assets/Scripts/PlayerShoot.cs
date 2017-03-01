@@ -7,6 +7,7 @@ public class PlayerShoot : NetworkBehaviour {
 
 	[SerializeField] float m_ShootCooldown = 0.3f;
 	[SerializeField] Transform m_FirePosition;
+	[SerializeField] ShotEffects m_ShotEffects;
 	[SerializeField] float m_Range = 50f;
 	[SyncVar (hook = "OnScoreChange")] int m_Score;
 	float m_ElapsedTime = 0;
@@ -14,6 +15,7 @@ public class PlayerShoot : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		m_ShotEffects.Initialize();
 		if(isLocalPlayer)
 			m_CanShoot = true;
 		else
@@ -56,8 +58,10 @@ public class PlayerShoot : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcProcessShotEffects(bool hit, Vector3 point){
+		m_ShotEffects.PlayShotEffects();
 		if(hit){
 			//Add hit particle effect at point and play sound at point
+			m_ShotEffects.PlayImpactEffect(point);
 		}
 	}
 
