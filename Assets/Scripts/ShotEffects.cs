@@ -27,8 +27,8 @@ public class ShotEffects : MonoBehaviour {
 	public void PlayShotEffects(){
 		m_MuzzleFlash.Stop(true);
 		m_MuzzleFlash.Play(true);
-		//m_GunAudio.Stop();
-		//m_GunAudio.Play();
+		m_GunAudio.Stop();
+		m_GunAudio.Play();
 	}
 
 	public void PlayImpactEffect(Vector3 impactPos){
