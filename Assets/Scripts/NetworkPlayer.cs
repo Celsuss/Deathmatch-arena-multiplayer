@@ -17,7 +17,6 @@ public class NetworkPlayer : NetworkBehaviour {
 	[SerializeField] ToggleEvent m_OnToggleLocal;
 	[SerializeField] ToggleEvent m_OnToggleRemote;
 	[SerializeField] float m_RespawnTime = 1f;
-
 	GameObject m_MainCamera;
 	NetworkAnimator m_Anim;
 

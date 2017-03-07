@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerShoot : NetworkBehaviour {
-
-	[SerializeField] float m_ShootCooldown = 0.3f;
-	[SerializeField] float m_ReloadTime = 1.5f;
+	[SerializeField] AudioSource m_AudioSource;
+	[SerializeField] AudioClip m_ReloadClip;
 	[SerializeField] Transform m_FirePosition;
 	[SerializeField] ShotEffects m_ShotEffects;
+	[SerializeField] float m_ShootCooldown = 0.3f;
+	[SerializeField] float m_ReloadTime = 4f;
 	[SerializeField] float m_Range = 50f;
 	[SerializeField] int m_MaxAmmo = 90;
 	[SerializeField] int m_MaxMagazine = 15;
@@ -25,8 +26,8 @@ public class PlayerShoot : NetworkBehaviour {
 		m_ShotEffects.Initialize();
 		OnScoreChanged(m_Score);
 		OnMagazineChanged(m_Magazine);
-
 		m_Reloading = false;
+
 		if(isLocalPlayer)
 			m_CanShoot = true;
 		else
@@ -50,9 +51,10 @@ public class PlayerShoot : NetworkBehaviour {
 			CmdFireShot(m_FirePosition.position, m_FirePosition.forward);
 		}
 
-		if(Input.GetButtonDown("Reload") && !m_Reloading){
+		if(Input.GetButtonDown("Reload") && !m_Reloading && m_Magazine < m_MaxMagazine){
 			m_Reloading = true;
 			m_ElapsedReloadTime = 0;
+			CmdStartReload();
 		}
 		Reload();
 	}
@@ -66,6 +68,12 @@ public class PlayerShoot : NetworkBehaviour {
 	}
 
 	[Command]
+	void CmdStartReload(){
+		//TODO: Reload animation
+		RpcProcessReloadEffect();
+	}
+
+	[Command]
 	void CmdFinishReload(){
 		m_Reloading = false;
 
@@ -76,7 +84,7 @@ public class PlayerShoot : NetworkBehaviour {
 		else{
 			m_Magazine = m_Ammo;
 			m_Ammo = 0;
-		}		
+		}
 	}
 
 	[Command]
@@ -96,6 +104,12 @@ public class PlayerShoot : NetworkBehaviour {
 			}
 		}
 		RpcProcessShotEffects(result, hit.point); 
+	}
+
+	[ClientRpc]
+	void RpcProcessReloadEffect(){
+		m_AudioSource.clip = m_ReloadClip;
+		m_AudioSource.Play();
 	}
 
 	[ClientRpc]
