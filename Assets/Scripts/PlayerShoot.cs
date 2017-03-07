@@ -6,16 +6,27 @@ using UnityEngine.Networking;
 public class PlayerShoot : NetworkBehaviour {
 
 	[SerializeField] float m_ShootCooldown = 0.3f;
+	[SerializeField] float m_ReloadTime = 1.5f;
 	[SerializeField] Transform m_FirePosition;
 	[SerializeField] ShotEffects m_ShotEffects;
 	[SerializeField] float m_Range = 50f;
-	[SyncVar (hook = "OnScoreChange")] int m_Score;
-	float m_ElapsedTime = 0;
+	[SerializeField] int m_MaxAmmo = 90;
+	[SerializeField] int m_MaxMagazine = 15;
+	[SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
+	[SyncVar (hook = "OnMagazineChanged")] int m_Magazine;
+	[SyncVar (hook = "OnScoreChanged")] int m_Score;
+	float m_ElapsedShootTime = 0f;
+	float m_ElapsedReloadTime = 0f;
+	bool m_Reloading = false;
 	bool m_CanShoot;
 
 	// Use this for initialization
 	void Start () {
 		m_ShotEffects.Initialize();
+		OnScoreChanged(m_Score);
+		OnMagazineChanged(m_Magazine);
+
+		m_Reloading = false;
 		if(isLocalPlayer)
 			m_CanShoot = true;
 		else
@@ -25,21 +36,52 @@ public class PlayerShoot : NetworkBehaviour {
 	[ServerCallback]
 	void OnEnable(){
 		m_Score = 0;
+		m_Ammo = m_MaxAmmo - m_MaxMagazine;
+		m_Magazine = m_MaxMagazine;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(!m_CanShoot) return;
 
-		m_ElapsedTime += Time.deltaTime;
-		if(Input.GetButtonDown("Fire1") && m_ElapsedTime > m_ShootCooldown){
-			m_ElapsedTime = 0;
+		m_ElapsedShootTime += Time.deltaTime;
+		if(Input.GetButtonDown("Fire1") && m_ElapsedShootTime > m_ShootCooldown && !m_Reloading && m_Magazine > 0){
+			m_ElapsedShootTime = 0;
 			CmdFireShot(m_FirePosition.position, m_FirePosition.forward);
+		}
+
+		if(Input.GetButtonDown("Reload") && !m_Reloading){
+			m_Reloading = true;
+			m_ElapsedReloadTime = 0;
+		}
+		Reload();
+	}
+
+	void Reload(){
+		if(m_Reloading){
+			m_ElapsedReloadTime += Time.deltaTime;
+			if(m_ElapsedReloadTime > m_ReloadTime)
+				CmdFinishReload();
 		}
 	}
 
 	[Command]
+	void CmdFinishReload(){
+		m_Reloading = false;
+
+		if(m_Ammo >= m_MaxMagazine){
+			m_Ammo -= m_MaxMagazine - m_Magazine;
+			m_Magazine = m_MaxMagazine;
+		}
+		else{
+			m_Magazine = m_Ammo;
+			m_Ammo = 0;
+		}		
+	}
+
+	[Command]
 	void CmdFireShot(Vector3 pos, Vector3 direction){
+		m_Magazine--;
 		RaycastHit hit;
 		Ray ray = new Ray(pos, direction);
 		Debug.DrawRay(pos, direction * 10f, Color.red, 1f);
@@ -59,17 +101,26 @@ public class PlayerShoot : NetworkBehaviour {
 	[ClientRpc]
 	void RpcProcessShotEffects(bool hit, Vector3 point){
 		m_ShotEffects.PlayShotEffects();
-		if(hit){
-			//Add hit particle effect at point and play sound at point
+		if(hit)
 			m_ShotEffects.PlayImpactEffect(point);
-		}
 	}
 
-	void OnScoreChange(int value){
+	void OnScoreChanged(int value){
 		m_Score = value;
-		if(isLocalPlayer){
+		if(isLocalPlayer)
 			PlayerUI.Instance.SetKills(value);
-		}
+	}
+
+	void OnAmmoChanged(int value){
+		m_Ammo = value;
+		if(isLocalPlayer)
+			PlayerUI.Instance.SetAmmo(value, m_Ammo);
+	}
+
+	void OnMagazineChanged(int value){
+		m_Magazine = value;
+		if(isLocalPlayer)
+			PlayerUI.Instance.SetAmmo(value, m_Ammo);
 	}
 
 	public void FireAsBot(){
