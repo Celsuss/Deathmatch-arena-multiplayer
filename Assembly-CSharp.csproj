@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\PlayerUI.cs" />
      <Compile Include="Assets\Scripts\RendererToggler.cs" />
      <Compile Include="Assets\Scripts\ShotEffects.cs" />
+     <Compile Include="Assets\Scripts\Standard Assets\FirstPersonController.cs" />
      <Compile Include="Assets\Scripts\WeaponPlacement.cs" />
      <Compile Include="Assets\SimpleParticlePack\Scripts\ParticleTester.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

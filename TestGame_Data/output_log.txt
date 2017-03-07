@@ -21,17 +21,17 @@ Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplaye
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.124 seconds
+- Completed reload, in  0.052 seconds
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Celsuss\Documents\GitHub\Deathmatch arena multiplayer\TestGame_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 59Hz; virtual: 3286x1080 at -1366,0
 <RI> Initialized touch support.
-UnloadTime: 1.386390 ms
+UnloadTime: 1.603628 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 136c -> priority: 1 
-  Thread -> id: 57c -> priority: 1 
+  Thread -> id: 2d00 -> priority: 1 
+  Thread -> id: f98 -> priority: 1 
 MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -49,8 +49,8 @@ DontDestroyOnLoad only work for root GameObjects or components on root GameObjec
 (Filename:  Line: 447)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.842675 ms
+UnloadTime: 2.481989 ms
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1391.
-Total: 2.561956 ms (FindLiveObjects: 0.136842 ms CreateObjectMapping: 0.133421 ms MarkObjects: 2.261329 ms  DeleteObjects: 0.029079 ms)
+Total: 1.369712 ms (FindLiveObjects: 0.056020 ms CreateObjectMapping: 0.061579 ms MarkObjects: 1.237145 ms  DeleteObjects: 0.013256 ms)
 
