@@ -8,6 +8,7 @@ public class PlayerHealth : NetworkBehaviour {
 	[SerializeField] int m_MaxHealth = 3;
 	[SyncVar (hook = "OnHealthChanged")] int m_Health;
 	NetworkPlayer m_Player;
+	public int MaxHealth{ get{ return m_MaxHealth; } }
 
 	void Awake(){
 		m_Player = GetComponent<NetworkPlayer>();
@@ -20,7 +21,7 @@ public class PlayerHealth : NetworkBehaviour {
 
 	//[ServerCallback]
 	void Start () {
-		OnHealthChanged(m_MaxHealth);
+		OnHealthChanged(m_MaxHealth-1);
 	}
 	
 	// Update is called once per frame
@@ -49,6 +50,16 @@ public class PlayerHealth : NetworkBehaviour {
 		if(died){
 			m_Player.Die();
 		}
+	}
+
+	[Command]
+	public void CmdGiveHealth(int health){
+		if(m_Health >= m_MaxHealth) return;
+
+		if(m_Health + health >= m_MaxHealth)
+			m_Health = m_MaxHealth;
+		else
+			m_Health += health;
 	}
 
 	void OnHealthChanged(int value){

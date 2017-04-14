@@ -58,6 +58,8 @@
      <Compile Include="Assets\Scripts\BotSpawner.cs" />
      <Compile Include="Assets\Scripts\LookAtCamera.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer.cs" />
+     <Compile Include="Assets\Scripts\PickupAmmo.cs" />
+     <Compile Include="Assets\Scripts\PickupHealth.cs" />
      <Compile Include="Assets\Scripts\PlayerCrouch.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\PlayerLobbyHook.cs" />
@@ -176,6 +178,7 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
      <None Include="Assets\Standard Assets\Effects\DepthOfField\Resources\MedianFilter.shader" />
+     <None Include="Assets\Shaders\PickupGlow.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />

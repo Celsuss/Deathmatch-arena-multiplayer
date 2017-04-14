@@ -106,6 +106,16 @@ public class PlayerShoot : NetworkBehaviour {
 		RpcProcessShotEffects(result, hit.point); 
 	}
 
+	[Command]
+	public void CmdAddAmmo(int ammo){
+		if(m_Ammo >= m_MaxAmmo) return;
+
+		if(m_Ammo + ammo >= m_MaxAmmo)
+			m_Ammo = m_MaxAmmo;
+		else
+			m_Ammo += ammo;
+	}
+
 	[ClientRpc]
 	void RpcProcessReloadEffect(){
 		m_AudioSource.clip = m_ReloadClip;
@@ -128,7 +138,7 @@ public class PlayerShoot : NetworkBehaviour {
 	void OnAmmoChanged(int value){
 		m_Ammo = value;
 		if(isLocalPlayer)
-			PlayerUI.Instance.SetAmmo(value, m_Ammo);
+			PlayerUI.Instance.SetAmmo(m_Magazine, value);
 	}
 
 	void OnMagazineChanged(int value){
