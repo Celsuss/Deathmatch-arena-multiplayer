@@ -43,13 +43,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
         const float k_Half = 0.5f;
         Animator m_Animator;
-        CapsuleCollider m_Capsule;
-        float m_CapsuleHeight;
-		Vector3 m_CapsuleCenter;
         float m_ForwardAmount;
         float m_UpwardAmount;
-        bool m_Crouch;
-        bool m_Crouching;
+        PlayerCrouch m_PlayerCrouch;
 
         // Use this for initialization
         private void Start()
@@ -66,12 +62,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             m_Animator = GetComponent<Animator>();
-            m_Capsule = GetComponent<CapsuleCollider>();
-            m_CapsuleHeight = m_Capsule.height;
-			m_CapsuleCenter = m_Capsule.center;
             m_ForwardAmount = 0f;
             m_UpwardAmount = 0f;
-            m_Crouching = false;
+            m_PlayerCrouch = GetComponent<PlayerCrouch>();
         }
 
 
@@ -84,8 +77,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
-            if(!m_Crouch)
-                m_Crouch = CrossPlatformInputManager.GetButtonDown("Crouch");
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -153,31 +144,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
-
-            ScaleCapsuleForCrouching();
             UpdateAnimator();
         }
-
-        void ScaleCapsuleForCrouching(){
-			if (m_CharacterController.isGrounded && m_Crouch && !m_Crouching){
-				if (m_Crouching) return;
-				m_Capsule.height = m_Capsule.height / 2f;
-				m_Capsule.center = m_Capsule.center / 2f;
-                m_CameraTransform.transform.position = new Vector3(m_CameraTransform.transform.position.x, m_CameraTransform.transform.position.y - m_Capsule.height, m_CameraTransform.transform.position.z);
-                //m_OriginalCameraPosition.y -= m_Capsule.height / 2f;
-				m_Crouching = true;
-                m_Crouch = false;
-			}
-			else if((m_Crouch || !m_CharacterController.isGrounded) && m_Crouching){
-				m_Capsule.height = m_CapsuleHeight;
-				m_Capsule.center = m_CapsuleCenter;
-                m_CameraTransform.transform.position = new Vector3(m_CameraTransform.transform.position.x, m_CameraTransform.transform.position.y + (m_Capsule.height / 2f), m_CameraTransform.transform.position.z);
-                //m_OriginalCameraPosition.y += m_Capsule.height / 2f;
-				m_Crouching = false;
-                m_Crouch = false;
-			}
-		}
-
 
         private void PlayJumpSound()
         {
@@ -225,11 +193,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
+            bool crouching = m_PlayerCrouch.IsCrouching();
             if (!m_UseHeadBob)
             {
                 return;
             }
-            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded && !m_Crouching)
+            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded && !crouching)
             {
                 m_Camera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
@@ -237,14 +206,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
             }
-            else if(!m_Crouching)
+            else if(!crouching)
             {
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
-            else{
+            else
                 newCameraPosition = m_Camera.transform.localPosition;
-            }
+
             m_Camera.transform.localPosition = newCameraPosition;
         }
 
@@ -308,7 +277,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 			//m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
-			m_Animator.SetBool("Crouch", m_Crouching);
+			m_Animator.SetBool("Crouch", m_PlayerCrouch.IsCrouching());
 			m_Animator.SetBool("OnGround", m_CharacterController.isGrounded);
             if (!m_CharacterController.isGrounded)
 				m_Animator.SetFloat("Jump", m_UpwardAmount);

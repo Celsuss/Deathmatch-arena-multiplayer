@@ -247,6 +247,7 @@ namespace UnityStandardAssets.CinematicEffects
             importer.textureType = TextureImporterType.Default;
             importer.anisoLevel = 0;
             importer.mipmapEnabled = false;
+            //importer.sRGBTexture = true;
             importer.linearTexture = true;
             importer.textureFormat = TextureImporterFormat.RGB24;
             importer.SaveAndReimport();

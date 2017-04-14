@@ -16,9 +16,9 @@ public class PlayerShoot : NetworkBehaviour {
 	[SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
 	[SyncVar (hook = "OnMagazineChanged")] int m_Magazine;
 	[SyncVar (hook = "OnScoreChanged")] int m_Score;
+	[SyncVar] bool m_Reloading = false;
 	float m_ElapsedShootTime = 0f;
 	float m_ElapsedReloadTime = 0f;
-	bool m_Reloading = false;
 	bool m_CanShoot;
 
 	// Use this for initialization
@@ -52,7 +52,6 @@ public class PlayerShoot : NetworkBehaviour {
 		}
 
 		if(Input.GetButtonDown("Reload") && !m_Reloading && m_Magazine < m_MaxMagazine){
-			m_Reloading = true;
 			m_ElapsedReloadTime = 0;
 			CmdStartReload();
 		}
@@ -70,6 +69,7 @@ public class PlayerShoot : NetworkBehaviour {
 	[Command]
 	void CmdStartReload(){
 		//TODO: Reload animation
+		m_Reloading = true;
 		RpcProcessReloadEffect();
 	}
 
@@ -98,7 +98,7 @@ public class PlayerShoot : NetworkBehaviour {
 		if(result){
 			PlayerHealth enemy = hit.transform.GetComponent<PlayerHealth>();
 			if(enemy){
-				if(enemy.TakeDamage()) {	//TakeDamage() returns true if enemy died
+				if(enemy.TakeDamage()) {	// returns true if enemy died
 					m_Score++;
 				}
 			}
