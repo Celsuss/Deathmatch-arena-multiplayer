@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\LookAtCamera.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer.cs" />
      <Compile Include="Assets\Scripts\PickupAmmo.cs" />
+     <Compile Include="Assets\Scripts\PickupBase.cs" />
      <Compile Include="Assets\Scripts\PickupHealth.cs" />
      <Compile Include="Assets\Scripts\PlayerCrouch.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />

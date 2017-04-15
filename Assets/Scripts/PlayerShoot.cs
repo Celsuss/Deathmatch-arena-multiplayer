@@ -20,6 +20,8 @@ public class PlayerShoot : NetworkBehaviour {
 	float m_ElapsedShootTime = 0f;
 	float m_ElapsedReloadTime = 0f;
 	bool m_CanShoot;
+	public int MaxAmmo{ get{ return m_MaxAmmo; } }
+	public int Ammo{ get{ return m_Ammo; } }
 
 	// Use this for initialization
 	void Start () {

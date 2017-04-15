@@ -9,6 +9,7 @@ public class PlayerHealth : NetworkBehaviour {
 	[SyncVar (hook = "OnHealthChanged")] int m_Health;
 	NetworkPlayer m_Player;
 	public int MaxHealth{ get{ return m_MaxHealth; } }
+	public int Health{ get{ return m_Health; } }
 
 	void Awake(){
 		m_Player = GetComponent<NetworkPlayer>();
@@ -21,7 +22,7 @@ public class PlayerHealth : NetworkBehaviour {
 
 	//[ServerCallback]
 	void Start () {
-		OnHealthChanged(m_MaxHealth-1);
+		OnHealthChanged(m_MaxHealth-2);
 	}
 	
 	// Update is called once per frame
@@ -53,7 +54,7 @@ public class PlayerHealth : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdGiveHealth(int health){
+	public void CmdAddHealth(int health){
 		if(m_Health >= m_MaxHealth) return;
 
 		if(m_Health + health >= m_MaxHealth)

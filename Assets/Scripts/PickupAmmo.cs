@@ -1,24 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PickupAmmo : MonoBehaviour {
+public class PickupAmmo : PickupBase {
+	[SerializeField] int m_Ammo = 10;
 
-	[SerializeField] int m_Ammo = 90;
+	protected override bool AddPickupToPlayer (Collider other) {
+		PlayerShoot shoot = other.GetComponent<PlayerShoot>();
+		if(shoot.Ammo >= shoot.MaxAmmo)
+			return false;
 
-	// Use this for initialization
-	void Start () {
-		
+		shoot.CmdAddAmmo(m_Ammo);
+		return true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	void OnTriggerEnter(Collider other) {
-        if(other.tag != "Player") return;
-
-		other.GetComponent<PlayerShoot>().CmdAddAmmo(m_Ammo);
-    }
 }

@@ -1,24 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PickupHealth : MonoBehaviour {
+public class PickupHealth : PickupBase {
+	[SerializeField] int m_Health = 1;
 
-	[SerializeField] int m_Health = 3;
+	protected override bool AddPickupToPlayer (Collider other) {
+		PlayerHealth health = other.GetComponent<PlayerHealth>();
+		if(health.Health >= health.MaxHealth)
+			return false;
 
-	// Use this for initialization
-	void Start () {
-		
+		health.CmdAddHealth(m_Health);
+		return true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	void OnTriggerEnter(Collider other) {
-        if(other.tag != "Player") return;
-
-		other.GetComponent<PlayerHealth>().CmdGiveHealth(m_Health);
-    }
 }
