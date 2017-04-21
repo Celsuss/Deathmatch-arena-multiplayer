@@ -22,9 +22,7 @@ public class WeaponPlacement : NetworkBehaviour {
 		m_Anim = GetComponent<Animator>();
 
 		if(isLocalPlayer){
-			Debug.Log(m_GunPivot.transform.position);
 			m_GunPivot.parent = m_CameraTransform;
-			Debug.Log(m_GunPivot.transform.position);
 		}
 		else{
 			m_LastOffset = m_Hand.position - transform.position;
