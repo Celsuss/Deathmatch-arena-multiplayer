@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PickupBase : NetworkBehaviour {
+abstract public class PickupBase : NetworkBehaviour {
 
 	[SerializeField] protected AudioClip m_PickupClip;
 	[SerializeField] protected float m_RespawnTime = 10f;
@@ -32,15 +32,13 @@ public class PickupBase : NetworkBehaviour {
 		}
 	}
 
-	protected virtual bool AddPickupToPlayer (Collider other) {
-		return false;
-	}
+	protected abstract bool Apply (Collider other);
 
 	[ServerCallback]
 	protected virtual void OnTriggerEnter(Collider other) {
         if(other.tag != "Player" || !m_Enabled) return;
 
-		if(AddPickupToPlayer(other)){
+		if(Apply(other)){
 			m_AudioSource.Play();
 			CmdFinishPickup();
 		}
