@@ -7,7 +7,8 @@ public class PlayerShoot : NetworkBehaviour {
 	[SerializeField] AudioSource m_AudioSource;
 	[SerializeField] AudioClip m_ReloadClip;
 	[SerializeField] Transform m_FirePosition;
-	[SerializeField] ShotEffects m_ShotEffects;
+	//[SerializeField] ShotEffects m_ShotEffects;
+	[SerializeField] PlayerWeapons m_PlayerWeapons;
 	[SerializeField] float m_ShootCooldown = 0.3f;
 	[SerializeField] float m_ReloadTime = 4f;
 	[SerializeField] float m_Range = 50f;
@@ -25,7 +26,7 @@ public class PlayerShoot : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		m_ShotEffects.Initialize();
+		//m_ShotEffects.Initialize();
 		OnScoreChanged(m_Score);
 		OnMagazineChanged(m_Magazine);
 		m_Reloading = false;
@@ -126,9 +127,13 @@ public class PlayerShoot : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcProcessShotEffects(bool hit, Vector3 point){
-		m_ShotEffects.PlayShotEffects();
+		/*m_ShotEffects.PlayShotEffects();
 		if(hit)
-			m_ShotEffects.PlayImpactEffect(point);
+			m_ShotEffects.PlayImpactEffect(point);*/
+
+		m_PlayerWeapons.CurrenShotEffect.PlayShotEffects();
+		if(hit)
+			m_PlayerWeapons.CurrenShotEffect.PlayImpactEffect(point);
 	}
 
 	void OnScoreChanged(int value){

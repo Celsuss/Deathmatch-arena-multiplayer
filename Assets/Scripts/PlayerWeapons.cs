@@ -6,18 +6,26 @@ using UnityEngine.Networking;
 public class PlayerWeapons : NetworkBehaviour {
 
 	[SerializeField] Transform m_GunPivot;
-	[SerializeField] GameObject[] m_Weapons;
+	[SerializeField] List<GameObject> m_Weapons;
+	[SerializeField] List<ShotEffects> m_ShotEffects;
 	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex;
 	GameObject m_CurrentWeapon;
+	ShotEffects m_CurrentShotEffect;
+	public GameObject CurrentWeapon{
+		get { return m_CurrentWeapon; }
+	}
+	public ShotEffects CurrenShotEffect{
+		get { return m_CurrentShotEffect; }
+	}
 
 	//[ServerCallback]
 	void Start () {
-		/*foreach(GameObject obj in m_Weapons){
-			obj.SetActive(false);
-			Debug.Log("Start");
-		}*/
+		foreach(GameObject obj in m_Weapons){
+			//obj.SetActive(false);
+			m_ShotEffects.Add(obj.GetComponentInChildren<ShotEffects>(true));
+		}
 
-		if(m_Weapons.Length >= 1)
+		if(m_Weapons.Count >= 1)
 			OnCurrentWeaponIndexChanged(0);
 	}
 	
@@ -25,17 +33,15 @@ public class PlayerWeapons : NetworkBehaviour {
 	void Update () {
 		if(!isLocalPlayer) return;
 
-		if(Input.GetKeyDown("1") && m_CurrentWeaponIndex != 0 && m_Weapons.Length >= 1){
-			CmdChangeWeapon(0);
-		}
-		else if(Input.GetKeyDown("2") && m_CurrentWeaponIndex != 1 && m_Weapons.Length >= 2){
-			CmdChangeWeapon(1);
+		for(int i = 0; i < m_Weapons.Count; i++){
+			if(Input.GetKeyDown((i+1).ToString()) && m_CurrentWeaponIndex != i)
+				CmdChangeWeapon(i);
 		}
 	}
 
 	[Command]
 	void CmdChangeWeapon(int index){
-		if(index >= m_Weapons.Length || index < 0) return;
+		if(index >= m_Weapons.Count || index < 0) return;
 
 		m_CurrentWeaponIndex = index;
 	}
@@ -69,5 +75,7 @@ public class PlayerWeapons : NetworkBehaviour {
 
 		m_CurrentWeapon = m_Weapons[value];
 		m_CurrentWeapon.SetActive(true);
+
+		m_CurrentShotEffect = m_ShotEffects[value];
 	}
 }
