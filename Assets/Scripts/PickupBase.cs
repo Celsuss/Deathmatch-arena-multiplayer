@@ -17,7 +17,7 @@ abstract public class PickupBase : NetworkBehaviour {
 		m_AudioSource = GetComponent<AudioSource>();
 		m_AudioSource.clip = m_PickupClip;
 		m_Mesh = GetComponent<MeshRenderer>();
-		m_Enabled = true;
+		OnEnabledChanged(true);
 	}
 	
 	// Update is called once per frame
