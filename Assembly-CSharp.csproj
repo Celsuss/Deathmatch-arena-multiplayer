@@ -74,7 +74,6 @@
      <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\ShotEffects.cs" />
      <Compile Include="Assets\Scripts\Standard Assets\FirstPersonController.cs" />
-     <Compile Include="Assets\Scripts\Weapons\InitializeParent.cs" />
      <Compile Include="Assets\Unused Asset Store Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
      <Compile Include="Assets\Unused Asset Store Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Unused Asset Store Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />

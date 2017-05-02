@@ -11,7 +11,6 @@ public class PlayerWeapons : NetworkBehaviour {
 	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex;
 	GameObject m_CurrentWeapon;
 	ShotEffects m_CurrentShotEffect;
-	NetworkInstanceId m_GunPivotNetworkId;
 	public GameObject CurrentWeapon{
 		get { return m_CurrentWeapon; }
 	}
@@ -28,8 +27,6 @@ public class PlayerWeapons : NetworkBehaviour {
 
 		if(m_Weapons.Count >= 1)
 			OnCurrentWeaponIndexChanged(0);
-
-		m_GunPivotNetworkId = m_GunPivot.GetComponent<NetworkIdentity>().netId;
 	}
 	
 	// Update is called once per frame
@@ -58,38 +55,29 @@ public class PlayerWeapons : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdAddWeapon(GameObject obj){
-		Vector3 pos = obj.transform.position + m_GunPivot.transform.position;
-		Quaternion rot = obj.transform.rotation * m_GunPivot.transform.rotation;
+	public void CmdAddWeapon(GameObject spawnObj){
+		Vector3 pos = spawnObj.transform.position + m_GunPivot.transform.position;
+		Quaternion rot = spawnObj.transform.rotation * m_GunPivot.transform.rotation;
 
-		//GameObject obj2 = NetworkBehaviour.Instantiate(obj, m_GunPivot);
-		GameObject obj2 = NetworkBehaviour.Instantiate(obj, pos, rot, m_GunPivot);
+		GameObject obj = NetworkBehaviour.Instantiate(spawnObj, pos, rot, m_GunPivot);
+		obj.transform.localPosition = spawnObj.transform.localPosition;
 
-		obj2.GetComponent<InitializeParent>().ParentNetIdValue = m_GunPivotNetworkId.Value;
-		Debug.Log("Cmd: Gun pivot NetId: " + m_GunPivotNetworkId);
-		obj2.transform.localPosition = obj.transform.localPosition;
-
-		NetworkServer.Spawn(obj2);
-
-		RpcProcessAddWeapon(obj2.name, m_GunPivot.GetComponent<NetworkIdentity>().netId.ToString());
-		//m_CurrentWeapon = obj2;
-		//m_CurrentWeaponIndex = m_Weapons.Count;
+		NetworkServer.Spawn(obj);
+		RpcProcessAddWeapon(obj.transform.localPosition, obj.transform.localRotation, obj, obj.transform.parent.gameObject);
 	}
 
 	[ClientRpc]
-	void RpcProcessAddWeapon(string name, string id){
-		Debug.Log("Rpc: Gun pivot NetId: " + id);
-		UpdateWeaponList(name);
+	void RpcProcessAddWeapon(Vector3 localPos, Quaternion localRot, GameObject weapon, GameObject parent){
+		weapon.transform.parent = m_GunPivot;
+        weapon.transform.localPosition = localPos;
+        weapon.transform.localRotation = localRot;
 
-		//	NetworkPickupManager
-		//	PickupNetworkManager
+		UpdateWeaponList(weapon);
 	}
 
-	void UpdateWeaponList(string name){
-		GameObject obj = m_GunPivot.FindChild(name).gameObject;
-
-		m_Weapons.Add(obj);
-		m_ShotEffects.Add(obj.GetComponentInChildren<ShotEffects>());
+	void UpdateWeaponList(GameObject weapon){
+		m_Weapons.Add(weapon);
+		m_ShotEffects.Add(weapon.GetComponentInChildren<ShotEffects>());
 
 		CmdChangeWeapon(m_Weapons.Count-1);
 	}

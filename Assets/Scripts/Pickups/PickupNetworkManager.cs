@@ -10,8 +10,6 @@ public class PickupNetworkManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("PickupNetworkManager Start");
-
 		for(int i = 0; i < Pickups.Count; i++)
 		{
 			if(Spawnpoints.Count >= i)
