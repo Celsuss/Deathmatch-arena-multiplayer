@@ -52,5 +52,6 @@ abstract public class PickupBase : NetworkBehaviour {
 	void OnEnabledChanged(bool value){
 		m_Enabled = value;
 		m_Mesh.enabled = value;
+		Debug.Log("Setting Mesh to " + value);
 	}
 }

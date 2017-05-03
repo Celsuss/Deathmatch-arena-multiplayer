@@ -8,8 +8,7 @@ public class PickupNetworkManager : NetworkBehaviour {
 	[SerializeField] List<Transform> Spawnpoints;
 	[SerializeField] List<GameObject> Pickups;
 
-	// Use this for initialization
-	void Start () {
+	public override void OnStartServer(){
 		for(int i = 0; i < Pickups.Count; i++)
 		{
 			if(Spawnpoints.Count >= i)
