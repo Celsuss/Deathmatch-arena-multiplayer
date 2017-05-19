@@ -7,7 +7,7 @@ abstract public class PickupBase : NetworkBehaviour {
 
 	[SerializeField] protected AudioClip m_PickupClip;
 	[SerializeField] protected float m_RespawnTime = 10f;
-	[SyncVar (hook = "OnEnabledChanged")] protected bool m_Enabled;
+	[SyncVar (hook = "OnEnabledChanged")] protected bool m_Enabled = true;
 	protected AudioSource m_AudioSource;
 	protected MeshRenderer m_Mesh;
 	protected float m_ElapsedRespawnTime = 0f;
@@ -15,9 +15,9 @@ abstract public class PickupBase : NetworkBehaviour {
 	// Use this for initialization
 	protected virtual void Start () {
 		m_AudioSource = GetComponent<AudioSource>();
-		m_AudioSource.clip = m_PickupClip;
+		if(m_PickupClip != null)
+				m_AudioSource.clip = m_PickupClip;
 		m_Mesh = GetComponent<MeshRenderer>();
-		OnEnabledChanged(true);
 	}
 	
 	// Update is called once per frame
@@ -39,7 +39,8 @@ abstract public class PickupBase : NetworkBehaviour {
         if(other.tag != "Player" || !m_Enabled) return;
 
 		if(Apply(other)){
-			m_AudioSource.Play();
+			if(m_AudioSource != null)
+				m_AudioSource.Play();
 			CmdFinishPickup();
 		}
     }
@@ -51,7 +52,7 @@ abstract public class PickupBase : NetworkBehaviour {
 
 	void OnEnabledChanged(bool value){
 		m_Enabled = value;
-		m_Mesh.enabled = value;
-		Debug.Log("Setting Mesh to " + value);
+		if(m_Mesh != null)
+			m_Mesh.enabled = value;
 	}
 }

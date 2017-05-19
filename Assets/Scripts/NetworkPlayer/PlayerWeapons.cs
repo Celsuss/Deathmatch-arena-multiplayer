@@ -6,27 +6,21 @@ using UnityEngine.Networking;
 public class PlayerWeapons : NetworkBehaviour {
 
 	[SerializeField] Transform m_GunPivot;
-	[SerializeField] List<GameObject> m_Weapons;
+	[SerializeField] List<PlayerWeapon> m_Weapons;
 	[SerializeField] List<ShotEffects> m_ShotEffects;
-	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex;
-	GameObject m_CurrentWeapon;
-	ShotEffects m_CurrentShotEffect;
-	public GameObject CurrentWeapon{
-		get { return m_CurrentWeapon; }
+	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex = 0;
+
+	[SerializeField] PlayerWeapon m_CurrentWeapon;
+	[SerializeField] ShotEffects m_CurrentShotEffect;
+
+	public PlayerWeapon CurrentWeapon{
+		get { return m_Weapons[m_CurrentWeaponIndex]; }
 	}
 	public ShotEffects CurrenShotEffect{
 		get { return m_CurrentShotEffect; }
 	}
 
-	//[ServerCallback]
 	void Start () {
-		foreach(GameObject obj in m_Weapons){
-			//obj.SetActive(false);
-			m_ShotEffects.Add(obj.GetComponentInChildren<ShotEffects>(true));
-		}
-
-		if(m_Weapons.Count >= 1)
-			OnCurrentWeaponIndexChanged(0);
 	}
 	
 	// Update is called once per frame
@@ -39,9 +33,9 @@ public class PlayerWeapons : NetworkBehaviour {
 		}
 	}
 
-	public bool HoldingWeapon(GameObject obj){
-		foreach(GameObject w in m_Weapons){
-			if(obj.name.Equals(w.name))
+	public bool HoldingWeapon(PlayerWeapon obj){
+		foreach(PlayerWeapon weapon in m_Weapons){
+			if(weapon.WeaponName.Equals(obj.WeaponName))
 				return true;
 		}
 		return false;
@@ -49,7 +43,10 @@ public class PlayerWeapons : NetworkBehaviour {
 
 	[Command]
 	void CmdChangeWeapon(int index){
-		if(index >= m_Weapons.Count || index < 0) return;
+		if(index >= m_Weapons.Count || index < 0){
+			Debug.Log("CmdChangeWeapon failed");
+			return;
+		}
 
 		m_CurrentWeaponIndex = index;
 	}
@@ -76,10 +73,17 @@ public class PlayerWeapons : NetworkBehaviour {
 	}
 
 	void UpdateWeaponList(GameObject weapon){
-		m_Weapons.Add(weapon);
+		m_Weapons.Add(weapon.GetComponent<PlayerWeapon>());
+		if(isLocalPlayer){
+			m_Weapons[m_Weapons.Count-1].BelongsToLocalPlayer = true;
+		}
+		
 		m_ShotEffects.Add(weapon.GetComponentInChildren<ShotEffects>());
 
-		CmdChangeWeapon(m_Weapons.Count-1);
+		if(m_CurrentWeapon != null)
+			CmdChangeWeapon(m_Weapons.Count-1);
+		else
+			OnCurrentWeaponIndexChanged(0);
 	}
 
 	void OnCurrentWeaponIndexChanged(int value){
@@ -90,21 +94,19 @@ public class PlayerWeapons : NetworkBehaviour {
 
 		m_CurrentWeaponIndex = value;
 
-		if(m_CurrentWeapon)
-			m_CurrentWeapon.SetActive(false);
-		//if(m_Weapons.Count <= value)
-		//	if(!FindNewWeapon()) return;
-
+		if(m_CurrentWeapon){
+			m_CurrentWeapon.gameObject.SetActive(false);
+		}
 
 		m_CurrentWeapon = m_Weapons[value];
-		m_CurrentWeapon.SetActive(true);
-
+		m_CurrentWeapon.gameObject.SetActive(true);
 		m_CurrentShotEffect = m_ShotEffects[value];
+
+		if(isLocalPlayer)
+			UpdateUI();
 	}
 
-	bool FindNewWeapon(){
-		
-
-		return false;
+	void UpdateUI(){
+		PlayerUI.Instance.SetAmmo(m_CurrentWeapon.Magazine, m_CurrentWeapon.Ammo);
 	}
 }
