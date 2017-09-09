@@ -22,7 +22,7 @@ public class PlayerHealth : NetworkBehaviour {
 
 	//[ServerCallback]
 	void Start () {
-		OnHealthChanged(m_MaxHealth-2);
+		OnHealthChanged(m_MaxHealth);
 	}
 	
 	// Update is called once per frame

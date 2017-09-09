@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class PickupAmmo : PickupBase {
 	[SerializeField] int m_Ammo = 10;
 
-	protected override bool Apply (Collider other) {
+	[Command]
+	protected override void CmdApply (GameObject other) {
 		/*PlayerShoot shoot = other.GetComponent<PlayerShoot>();
 		if(shoot.Ammo >= shoot.MaxAmmo)
 			return false;
@@ -16,9 +17,9 @@ public class PickupAmmo : PickupBase {
 
 		PlayerWeapon weapon = other.GetComponent<PlayerWeapons>().CurrentWeapon;
 		if(weapon.Ammo >= weapon.MaxAmmo)
-			return false;
+			return;
 
 		weapon.CmdAddAmmo(m_Ammo);
-		return true;
+		CmdFinishPickup();
 	}
 }

@@ -6,12 +6,12 @@ using UnityEngine.Networking;
 public class PlayerWeapons : NetworkBehaviour {
 
 	[SerializeField] Transform m_GunPivot;
+	[SerializeField] PlayerWeapon m_StartingWeapon;
 	[SerializeField] List<PlayerWeapon> m_Weapons;
 	[SerializeField] List<ShotEffects> m_ShotEffects;
-	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex = 0;
-
 	[SerializeField] PlayerWeapon m_CurrentWeapon;
 	[SerializeField] ShotEffects m_CurrentShotEffect;
+	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex = 0;
 
 	public PlayerWeapon CurrentWeapon{
 		get { return m_Weapons[m_CurrentWeaponIndex]; }
@@ -20,8 +20,13 @@ public class PlayerWeapons : NetworkBehaviour {
 		get { return m_CurrentShotEffect; }
 	}
 
-	void Start () {
-	}
+    public override void OnStartLocalPlayer(){
+        
+    }
+
+    void Start () {
+		UpdateWeaponList(GetComponentInChildren<PlayerWeapon>().gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -43,10 +48,8 @@ public class PlayerWeapons : NetworkBehaviour {
 
 	[Command]
 	void CmdChangeWeapon(int index){
-		if(index >= m_Weapons.Count || index < 0){
-			Debug.Log("CmdChangeWeapon failed");
+		if(index >= m_Weapons.Count || index < 0)
 			return;
-		}
 
 		m_CurrentWeaponIndex = index;
 	}
@@ -56,16 +59,16 @@ public class PlayerWeapons : NetworkBehaviour {
 		Vector3 pos = spawnObj.transform.position + m_GunPivot.transform.position;
 		Quaternion rot = spawnObj.transform.rotation * m_GunPivot.transform.rotation;
 
-		GameObject obj = NetworkBehaviour.Instantiate(spawnObj, pos, rot, m_GunPivot);
+        GameObject obj = NetworkBehaviour.Instantiate(spawnObj, spawnObj.transform.localPosition, rot, m_GunPivot);
 		obj.transform.localPosition = spawnObj.transform.localPosition;
+        NetworkServer.Spawn(obj);
 
-		NetworkServer.Spawn(obj);
-		RpcProcessAddWeapon(obj.transform.localPosition, obj.transform.localRotation, obj, obj.transform.parent.gameObject);
+		RpcProcessAddWeapon(obj.transform.localPosition, obj.transform.localRotation, obj);
 	}
 
 	[ClientRpc]
-	void RpcProcessAddWeapon(Vector3 localPos, Quaternion localRot, GameObject weapon, GameObject parent){
-		weapon.transform.parent = m_GunPivot;
+	void RpcProcessAddWeapon(Vector3 localPos, Quaternion localRot, GameObject weapon){
+        weapon.transform.parent = m_GunPivot;
         weapon.transform.localPosition = localPos;
         weapon.transform.localRotation = localRot;
 
@@ -87,10 +90,8 @@ public class PlayerWeapons : NetworkBehaviour {
 	}
 
 	void OnCurrentWeaponIndexChanged(int value){
-		if(m_Weapons.Count <= value){
-			Debug.Log("Failed to change current weapon to " + value);
+		if(m_Weapons.Count <= value)
 			return;
-		}
 
 		m_CurrentWeaponIndex = value;
 
@@ -106,7 +107,7 @@ public class PlayerWeapons : NetworkBehaviour {
 			UpdateUI();
 	}
 
-	void UpdateUI(){
+    void UpdateUI(){
 		PlayerUI.Instance.SetAmmo(m_CurrentWeapon.Magazine, m_CurrentWeapon.Ammo);
 	}
 }

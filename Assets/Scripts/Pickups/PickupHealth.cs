@@ -6,12 +6,13 @@ using UnityEngine.Networking;
 public class PickupHealth : PickupBase {
 	[SerializeField] int m_Health = 1;
 
-	protected override bool Apply (Collider other) {
+	[Command]
+	protected override void CmdApply (GameObject other) {
 		PlayerHealth health = other.GetComponent<PlayerHealth>();
 		if(health.Health >= health.MaxHealth)
-			return false;
+			return;
 
 		health.CmdAddHealth(m_Health);
-		return true;
+		CmdFinishPickup();
 	}
 }

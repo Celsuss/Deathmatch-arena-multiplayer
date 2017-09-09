@@ -32,21 +32,21 @@ abstract public class PickupBase : NetworkBehaviour {
 		}
 	}
 
-	protected abstract bool Apply (Collider other);
+	[Command]
+	protected abstract void CmdApply (GameObject other);
 
 	[ServerCallback]
 	protected virtual void OnTriggerEnter(Collider other) {
         if(other.tag != "Player" || !m_Enabled) return;
 
-		if(Apply(other)){
-			if(m_AudioSource != null)
-				m_AudioSource.Play();
-			CmdFinishPickup();
-		}
+		CmdApply(other.gameObject);
     }
 
 	[Command]
 	protected virtual void CmdFinishPickup(){
+		// TODO: Play audio in RPC
+		if(m_AudioSource != null)
+			m_AudioSource.Play();
 		m_Enabled = false;
 	}
 

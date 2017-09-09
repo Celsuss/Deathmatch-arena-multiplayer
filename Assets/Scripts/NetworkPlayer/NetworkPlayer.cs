@@ -12,6 +12,7 @@ public class NetworkPlayer : NetworkBehaviour {
 
 	[SyncVar (hook="OnNameChanged")] public string m_PlayerName;
 	[SyncVar (hook="OnColorChanged")] public Color m_PlayerColor;
+	[SyncVar] public bool m_IsPlayerLoaded = false;
 
 	[SerializeField] ToggleEvent m_OnToggleShared;
 	[SerializeField] ToggleEvent m_OnToggleLocal;

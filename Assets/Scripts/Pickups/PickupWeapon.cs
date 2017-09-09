@@ -27,15 +27,27 @@ public class PickupWeapon : PickupBase {
 		base.Start();
 	}
 	
-	protected override bool Apply (Collider other) {
+	[Command]
+	protected override void CmdApply (GameObject other) {
 		//Debug.Log("Pickup Weapon");
 		PlayerWeapons weapons = other.GetComponent<PlayerWeapons>();
-		if(weapons.HoldingWeapon(m_Weapon)){
-			//Debug.Log("Player already holding Pickup Weapon");
+		/*if(!weapons.IsComponentLoaded){
+			Debug.Log("PickupWeapon weapons component not loaded");
+			StartCoroutine(WaitForComponentToLoad_Coroutine(other));
 			return false;
+		}*/
+
+		if(weapons.HoldingWeapon(m_Weapon)){
+			return;
 		}
 
+		Debug.Log("Apply PickupWeapon");
 		weapons.CmdAddWeapon(m_Weapon.gameObject);
-		return true;
+		CmdFinishPickup();
+	}
+
+	IEnumerator WaitForComponentToLoad_Coroutine(Collider other){
+		yield return new WaitForSeconds(0.5f);
+ 		OnTriggerEnter (other);
 	}
 }

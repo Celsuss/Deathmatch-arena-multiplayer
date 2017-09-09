@@ -7,30 +7,16 @@ public class PlayerShoot : NetworkBehaviour {
 	[SerializeField] AudioSource m_AudioSource;
 	[SerializeField] AudioClip m_ReloadClip;
 	[SerializeField] Transform m_FirePosition;
-	//[SerializeField] ShotEffects m_ShotEffects;
 	[SerializeField] PlayerWeapons m_PlayerWeapons;
-	/*[SerializeField] float m_ShootCooldown = 0.3f;
-	[SerializeField] float m_ReloadTime = 4f;
-	[SerializeField] float m_Range = 50f;
-	[SerializeField] int m_MaxAmmo = 90;
-	[SerializeField] int m_MaxMagazine = 15;
-	[SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
-	[SyncVar (hook = "OnMagazineChanged")] int m_Magazine;*/
 	[SyncVar (hook = "OnScoreChanged")] int m_Score;
 	[SyncVar] bool m_Reloading = false;
 	float m_ElapsedShootTime = 0f;
-	float m_ElapsedReloadTime = 0f;
 	bool m_CanShoot;
-	//public int MaxAmmo{ get{ return m_MaxAmmo; } }
-	//public int Ammo{ get{ return m_Ammo; } }
 
 	// Use this for initialization
 	void Start () {
-		//m_ShotEffects.Initialize();
 		OnScoreChanged(m_Score);
 		m_PlayerWeapons = GetComponent<PlayerWeapons>();
-		//m_PlayerWeapons.CurrentWeapon.m
-		//OnMagazineChanged(m_Magazine);
 		m_Reloading = false;
 
 		if(isLocalPlayer)
@@ -42,8 +28,6 @@ public class PlayerShoot : NetworkBehaviour {
 	[ServerCallback]
 	void OnEnable(){
 		m_Score = 0;
-		//m_Ammo = m_MaxAmmo - m_MaxMagazine;
-		//m_Magazine = m_MaxMagazine;
 	}
 	
 	// Update is called once per frame
@@ -58,20 +42,9 @@ public class PlayerShoot : NetworkBehaviour {
 		}
 
 		if(Input.GetButtonDown("Reload") && !m_Reloading && m_PlayerWeapons.CurrentWeapon.Magazine < m_PlayerWeapons.CurrentWeapon.MaxMagazine){
-			m_ElapsedReloadTime = 0;
 			CmdStartReload();
 		}
-		Reload();
 	}
-
-	void Reload(){
-		if(m_Reloading){
-			m_ElapsedReloadTime += Time.deltaTime;
-			if(m_ElapsedReloadTime > m_PlayerWeapons.CurrentWeapon.ReloadTime)
-				CmdFinishReload();
-		}
-	}
-
 	IEnumerator Reload_Coroutine(){
 		m_Reloading = true;
 		yield return new WaitForSeconds(m_PlayerWeapons.CurrentWeapon.ReloadTime);
@@ -91,32 +64,17 @@ public class PlayerShoot : NetworkBehaviour {
 	[Command]
 	void CmdStartReload(){
 		//TODO: Reload animation
-		m_Reloading = true;
+		StartCoroutine(Reload_Coroutine());
 		RpcProcessReloadEffect();
-	}
-
-	[Command]
-	void CmdFinishReload(){
-		m_Reloading = false;
-
-		if(m_PlayerWeapons.CurrentWeapon.Ammo >= m_PlayerWeapons.CurrentWeapon.MaxMagazine){
-			m_PlayerWeapons.CurrentWeapon.Ammo -= m_PlayerWeapons.CurrentWeapon.MaxMagazine - m_PlayerWeapons.CurrentWeapon.Magazine;
-			m_PlayerWeapons.CurrentWeapon.Magazine = m_PlayerWeapons.CurrentWeapon.MaxMagazine;
-		}
-		else{
-			m_PlayerWeapons.CurrentWeapon.Magazine = m_PlayerWeapons.CurrentWeapon.Ammo;
-			m_PlayerWeapons.CurrentWeapon.Ammo = 0;
-		}
 	}
 
 	[Command]
 	void CmdFireShot(Vector3 pos, Vector3 direction){
 		m_PlayerWeapons.CurrentWeapon.Magazine--;
-		//Debug.Log("Setting magazine to: " + m_PlayerWeapons.CurrentWeapon.Magazine + " on weapon: " + m_PlayerWeapons.CurrentWeapon.WeaponName);
 		
 		RaycastHit hit;
 		Ray ray = new Ray(pos, direction);
-		Debug.DrawRay(pos, direction * 10f, Color.red, 1f);
+		Debug.DrawRay(pos, direction * m_PlayerWeapons.CurrentWeapon.Range, Color.red, 1f);
 		bool result = Physics.Raycast(ray, out hit, m_PlayerWeapons.CurrentWeapon.Range);
 		
 		if(result){
@@ -130,16 +88,6 @@ public class PlayerShoot : NetworkBehaviour {
 		RpcProcessShotEffects(result, hit.point); 
 	}
 
-	/*[Command]
-	public void CmdAddAmmo(int ammo){
-		if(m_PlayerWeapons.CurrentWeapon.Ammo >= m_PlayerWeapons.CurrentWeapon.MaxAmmo) return;
-
-		if(m_PlayerWeapons.CurrentWeapon.Ammo + ammo >= m_PlayerWeapons.CurrentWeapon.MaxAmmo)
-			m_PlayerWeapons.CurrentWeapon.Ammo = m_PlayerWeapons.CurrentWeapon.MaxAmmo;
-		else
-			m_PlayerWeapons.CurrentWeapon.Ammo += ammo;
-	}*/
-
 	[ClientRpc]
 	void RpcProcessReloadEffect(){
 		m_AudioSource.clip = m_ReloadClip;
@@ -148,10 +96,6 @@ public class PlayerShoot : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcProcessShotEffects(bool hit, Vector3 point){
-		/*m_ShotEffects.PlayShotEffects();
-		if(hit)
-			m_ShotEffects.PlayImpactEffect(point);*/
-
 		m_PlayerWeapons.CurrenShotEffect.PlayShotEffects();
 		if(hit)
 			m_PlayerWeapons.CurrenShotEffect.PlayImpactEffect(point);
@@ -162,18 +106,6 @@ public class PlayerShoot : NetworkBehaviour {
 		if(isLocalPlayer)
 			PlayerUI.Instance.SetKills(value);
 	}
-
-	/*void OnAmmoChanged(int value){
-		m_Ammo = value;
-		if(isLocalPlayer)
-			PlayerUI.Instance.SetAmmo(m_Magazine, value);
-	}
-
-	void OnMagazineChanged(int value){
-		m_Magazine = value;
-		if(isLocalPlayer)
-			PlayerUI.Instance.SetAmmo(value, m_Ammo);
-	}*/
 
 	public void FireAsBot(){
 		//CmdFireShot(m_FirePosition.position, m_FirePosition.forward);

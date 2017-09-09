@@ -14,6 +14,11 @@ public class PlayerWeapon : NetworkBehaviour {
 	[SerializeField] string m_WeaponName;
 	[SerializeField] [SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
 	[SerializeField] [SyncVar (hook = "OnMagazineChanged")] int m_Magazine;
+    NetworkIdentity m_NetworkId;
+
+    public NetworkIdentity NetworkId{
+        get { return m_NetworkId; }
+    }
 
 	public float ReloadTime{
 		get{ return m_ReloadTime; }
@@ -46,7 +51,9 @@ public class PlayerWeapon : NetworkBehaviour {
 	void Start () {
 		OnAmmoChanged(m_MaxAmmo - m_MaxMagazine);
 		OnMagazineChanged(m_MaxMagazine);
-	}
+
+        m_NetworkId = GetComponent<NetworkIdentity>();
+    }
 
 	[ServerCallback]
 	void OnEnable(){

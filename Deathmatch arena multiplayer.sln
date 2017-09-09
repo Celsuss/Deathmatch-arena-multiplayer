@@ -1,11 +1,11 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{FC531A97-7249-6FE4-08A9-F1A8F650E760}") = "Deathmatch arena multiplayer", "Assembly-CSharp-firstpass.csproj", "{A144F1F0-A62F-3956-9282-8652D6727773}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer", "Assembly-CSharp.csproj", "{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}"
 EndProject
-Project("{FC531A97-7249-6FE4-08A9-F1A8F650E760}") = "Deathmatch arena multiplayer", "Assembly-CSharp.csproj", "{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer", "Assembly-CSharp-firstpass.csproj", "{A144F1F0-A62F-3956-9282-8652D6727773}"
 EndProject
-Project("{FC531A97-7249-6FE4-08A9-F1A8F650E760}") = "Deathmatch arena multiplayer", "Assembly-CSharp-Editor-firstpass.csproj", "{D4F69B67-EAD1-D57C-50D7-2565F1BDAFC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deathmatch arena multiplayer", "Assembly-CSharp-Editor-firstpass.csproj", "{D4F69B67-EAD1-D57C-50D7-2565F1BDAFC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A144F1F0-A62F-3956-9282-8652D6727773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A144F1F0-A62F-3956-9282-8652D6727773}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A144F1F0-A62F-3956-9282-8652D6727773}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A144F1F0-A62F-3956-9282-8652D6727773}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D76534-A22A-1EF2-4C30-FADC09FDC5A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A144F1F0-A62F-3956-9282-8652D6727773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A144F1F0-A62F-3956-9282-8652D6727773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A144F1F0-A62F-3956-9282-8652D6727773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A144F1F0-A62F-3956-9282-8652D6727773}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4F69B67-EAD1-D57C-50D7-2565F1BDAFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4F69B67-EAD1-D57C-50D7-2565F1BDAFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F69B67-EAD1-D57C-50D7-2565F1BDAFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU

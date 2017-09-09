@@ -21,12 +21,10 @@ public class WeaponPlacement : NetworkBehaviour {
 	void Start () {
 		m_Anim = GetComponent<Animator>();
 
-		if(isLocalPlayer){
+		if(isLocalPlayer)
 			m_GunPivot.parent = m_CameraTransform;
-		}
-		else{
+		else
 			m_LastOffset = m_Hand.position - transform.position;
-		}
 	}
 	
 	// Update is called once per frame
