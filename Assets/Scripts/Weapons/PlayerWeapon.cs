@@ -14,11 +14,14 @@ public class PlayerWeapon : NetworkBehaviour {
 	[SerializeField] string m_WeaponName;
 	[SerializeField] [SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
 	[SerializeField] [SyncVar (hook = "OnMagazineChanged")] int m_Magazine;
-    NetworkIdentity m_NetworkId;
+	[SyncVar] bool m_Reloading = false;
+	Transform m_FirePosition;
+	float m_ElapsedShootTime = 0f;
 
-    public NetworkIdentity NetworkId{
-        get { return m_NetworkId; }
-    }
+	public Transform FirePosition{
+		get { return m_FirePosition; }
+		set { m_FirePosition = value; }
+	}
 
 	public float ReloadTime{
 		get{ return m_ReloadTime; }
@@ -51,8 +54,6 @@ public class PlayerWeapon : NetworkBehaviour {
 	void Start () {
 		OnAmmoChanged(m_MaxAmmo - m_MaxMagazine);
 		OnMagazineChanged(m_MaxMagazine);
-
-        m_NetworkId = GetComponent<NetworkIdentity>();
     }
 
 	[ServerCallback]
@@ -64,9 +65,44 @@ public class PlayerWeapon : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(BelongsToLocalPlayer){
-			PlayerUI.Instance.SetAmmo(m_Magazine, m_Ammo);
+		if(!BelongsToLocalPlayer) return;
+
+		m_ElapsedShootTime += Time.deltaTime;
+		if(Input.GetButtonDown("Fire1") && m_ElapsedShootTime > ShootCooldown && !m_Reloading && m_Magazine > 0){
+			m_ElapsedShootTime = 0;
+			CmdFireShot(m_FirePosition.position, m_FirePosition.forward);
 		}
+
+		if(Input.GetButtonDown("Reload") && !m_Reloading && m_Magazine < MaxMagazine){
+			CmdStartReload();
+		}
+
+		/*if(BelongsToLocalPlayer){
+			PlayerUI.Instance.SetAmmo(m_Magazine, m_Ammo);
+		}*/
+	}
+
+	IEnumerator Reload_Coroutine(){
+		m_Reloading = true;
+		yield return new WaitForSeconds(m_ReloadTime);
+
+		if(m_Ammo >= MaxMagazine){
+			m_Ammo -= MaxMagazine - m_Magazine;
+			m_Magazine = MaxMagazine;
+		}
+		else{
+			m_Magazine = m_Ammo;
+			m_Ammo = 0;
+		}
+
+		m_Reloading = false;
+	}
+
+	[Command]
+	void CmdStartReload(){
+		//TODO: Reload animation
+		StartCoroutine(Reload_Coroutine());
+		RpcProcessReloadEffect();
 	}
 
 	[Command]
@@ -79,8 +115,7 @@ public class PlayerWeapon : NetworkBehaviour {
 			Ammo += ammo;
 	}
 
-	////
-	/*[Command]
+	[Command]
 	public void CmdFireShot(Vector3 pos, Vector3 direction){
 		Magazine--;
 		Debug.Log("Setting magazine to: " + Magazine + " on weapon: " + WeaponName);
@@ -106,8 +141,13 @@ public class PlayerWeapon : NetworkBehaviour {
 		//m_PlayerWeapons.CurrenShotEffect.PlayShotEffects();
 		//if(hit)
 		//	m_PlayerWeapons.CurrenShotEffect.PlayImpactEffect(point);
-	}*/
-	////
+	}
+	
+	[ClientRpc]
+	void RpcProcessReloadEffect(){
+		//m_AudioSource.clip = m_ReloadClip;
+		//m_AudioSource.Play();
+	}
 
 	void OnAmmoChanged(int value){
 		m_Ammo = value;

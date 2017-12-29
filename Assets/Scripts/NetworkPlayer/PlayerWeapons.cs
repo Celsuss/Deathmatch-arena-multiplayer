@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerWeapons : NetworkBehaviour {
 
+	[SerializeField] Transform m_FirePosition;
 	[SerializeField] Transform m_GunPivot;
 	[SerializeField] PlayerWeapon m_StartingWeapon;
 	[SerializeField] List<PlayerWeapon> m_Weapons;
@@ -12,6 +13,8 @@ public class PlayerWeapons : NetworkBehaviour {
 	[SerializeField] PlayerWeapon m_CurrentWeapon;
 	[SerializeField] ShotEffects m_CurrentShotEffect;
 	[SyncVar (hook="OnCurrentWeaponIndexChanged")] int m_CurrentWeaponIndex = 0;
+
+	
 
 	public PlayerWeapon CurrentWeapon{
 		get { return m_Weapons[m_CurrentWeaponIndex]; }
@@ -25,8 +28,25 @@ public class PlayerWeapons : NetworkBehaviour {
     }
 
     void Start () {
-		UpdateWeaponList(GetComponentInChildren<PlayerWeapon>().gameObject);
+		// Start coroutine and add weapon
+
+		if(isLocalPlayer)
+		{
+			CmdAddStartingWeapon();
+			Debug.Log("Adding starting weapon");
+		}
+		//UpdateWeaponList(m_StartingWeapon.gameObject);
+
+		//UpdateWeaponList(GetComponentInChildren<PlayerWeapon>().gameObject);
     }
+
+	IEnumerator AddStartingWeapon_Coroutine(){
+		//yield return new WaitForSeconds(1);
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+		CmdAddWeapon(m_StartingWeapon.gameObject);
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,6 +75,23 @@ public class PlayerWeapons : NetworkBehaviour {
 	}
 
 	[Command]
+	public void CmdAddStartingWeapon(){
+		StartCoroutine(AddStartingWeapon_Coroutine());
+		// GameObject spawnObj = m_StartingWeapon.gameObject;
+		// Vector3 pos = spawnObj.transform.position + m_GunPivot.transform.position;
+		// Quaternion rot = spawnObj.transform.rotation * m_GunPivot.transform.rotation;
+
+        // GameObject obj = NetworkBehaviour.Instantiate(spawnObj, spawnObj.transform.localPosition, rot, m_GunPivot);
+		// obj.transform.localPosition = spawnObj.transform.localPosition;
+        // NetworkServer.Spawn(obj);
+
+		// // Give ownership to player
+		// obj.GetComponent<NetworkIdentity>().AssignClientAuthority(gameObject.GetComponent<NetworkIdentity>().connectionToClient);
+
+		// OnCurrentWeaponIndexChanged(0);
+	}
+
+	[Command]
 	public void CmdAddWeapon(GameObject spawnObj){
 		Vector3 pos = spawnObj.transform.position + m_GunPivot.transform.position;
 		Quaternion rot = spawnObj.transform.rotation * m_GunPivot.transform.rotation;
@@ -62,6 +99,9 @@ public class PlayerWeapons : NetworkBehaviour {
         GameObject obj = NetworkBehaviour.Instantiate(spawnObj, spawnObj.transform.localPosition, rot, m_GunPivot);
 		obj.transform.localPosition = spawnObj.transform.localPosition;
         NetworkServer.Spawn(obj);
+
+		// Give ownership to player
+		obj.GetComponent<NetworkIdentity>().AssignClientAuthority(gameObject.GetComponent<NetworkIdentity>().connectionToClient);
 
 		RpcProcessAddWeapon(obj.transform.localPosition, obj.transform.localRotation, obj);
 	}
@@ -80,6 +120,7 @@ public class PlayerWeapons : NetworkBehaviour {
 		if(isLocalPlayer){
 			m_Weapons[m_Weapons.Count-1].BelongsToLocalPlayer = true;
 		}
+		m_Weapons[m_Weapons.Count-1].FirePosition = m_FirePosition;
 		
 		m_ShotEffects.Add(weapon.GetComponentInChildren<ShotEffects>());
 
@@ -90,6 +131,13 @@ public class PlayerWeapons : NetworkBehaviour {
 	}
 
 	void OnCurrentWeaponIndexChanged(int value){
+		if(m_Weapons.Count <= 0){
+			PlayerWeapon obj = GetComponentInChildren<PlayerWeapon>();
+			if(obj)
+				UpdateWeaponList(obj.gameObject);
+			return;
+		}
+
 		if(m_Weapons.Count <= value)
 			return;
 

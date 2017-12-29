@@ -53,7 +53,7 @@ public class Bot : NetworkBehaviour {
 			return;
 
 		m_EllapsedTime = 0f;
-		if(m_PlayerShoot.enabled)
-			m_PlayerShoot.FireAsBot();
+		/*if(m_PlayerShoot.enabled)
+			m_PlayerShoot.FireAsBot();*/
 	}
 }
