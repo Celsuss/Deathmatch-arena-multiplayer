@@ -61,6 +61,7 @@
      <Compile Include="Assets\GameArenaLevel\scripts\waitAndDestroy.cs" />
      <Compile Include="Assets\Scripts\Bot.cs" />
      <Compile Include="Assets\Scripts\BotSpawner.cs" />
+     <Compile Include="Assets\Scripts\Debug\DebugFPSCounter.cs" />
      <Compile Include="Assets\Scripts\LookAtCamera.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\NetworkPlayer.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\PlayerCrouch.cs" />
