@@ -28,23 +28,14 @@ public class PlayerWeapons : NetworkBehaviour {
     }
 
     void Start () {
-		// Start coroutine and add weapon
-
 		if(isLocalPlayer)
-		{
 			CmdAddStartingWeapon();
-			Debug.Log("Adding starting weapon");
-		}
-		//UpdateWeaponList(m_StartingWeapon.gameObject);
-
-		//UpdateWeaponList(GetComponentInChildren<PlayerWeapon>().gameObject);
     }
 
 	IEnumerator AddStartingWeapon_Coroutine(){
-		//yield return new WaitForSeconds(1);
-		yield return new WaitForEndOfFrame();
-		yield return new WaitForEndOfFrame();
-		yield return new WaitForEndOfFrame();
+		// Hack because RPC methods dont work at the start.
+		yield return new WaitForSeconds(0.2f);
+
 		CmdAddWeapon(m_StartingWeapon.gameObject);
 	}
 	
@@ -77,18 +68,6 @@ public class PlayerWeapons : NetworkBehaviour {
 	[Command]
 	public void CmdAddStartingWeapon(){
 		StartCoroutine(AddStartingWeapon_Coroutine());
-		// GameObject spawnObj = m_StartingWeapon.gameObject;
-		// Vector3 pos = spawnObj.transform.position + m_GunPivot.transform.position;
-		// Quaternion rot = spawnObj.transform.rotation * m_GunPivot.transform.rotation;
-
-        // GameObject obj = NetworkBehaviour.Instantiate(spawnObj, spawnObj.transform.localPosition, rot, m_GunPivot);
-		// obj.transform.localPosition = spawnObj.transform.localPosition;
-        // NetworkServer.Spawn(obj);
-
-		// // Give ownership to player
-		// obj.GetComponent<NetworkIdentity>().AssignClientAuthority(gameObject.GetComponent<NetworkIdentity>().connectionToClient);
-
-		// OnCurrentWeaponIndexChanged(0);
 	}
 
 	[Command]

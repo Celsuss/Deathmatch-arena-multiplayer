@@ -5,18 +5,22 @@ using UnityEngine.Networking;
 
 public class PlayerWeapon : NetworkBehaviour {
 
+	[SerializeField] AudioClip m_ShootClip;
+	[SerializeField] AudioClip m_ReloadClip;
+	ShotEffects m_ShotEffects;
+	AudioSource m_AudioSource;
 	/*[HideInInspector]*/ public bool BelongsToLocalPlayer = false;
-	[SerializeField] float m_ShootCooldown = 0.3f;
-	[SerializeField] float m_ReloadTime = 4f;
-	[SerializeField] float m_Range = 50f;
-	[SerializeField] int m_MaxAmmo = 90;
-	[SerializeField] int m_MaxMagazine = 15;
+	[SerializeField] protected float m_ShootCooldown = 0.3f;
+	[SerializeField] protected float m_ReloadTime = 4f;
+	[SerializeField] protected float m_Range = 50f;
+	[SerializeField] protected int m_MaxAmmo = 90;
+	[SerializeField] protected int m_MaxMagazine = 15;
 	[SerializeField] string m_WeaponName;
 	[SerializeField] [SyncVar (hook = "OnAmmoChanged")] int m_Ammo = 0;
-	[SerializeField] [SyncVar (hook = "OnMagazineChanged")] int m_Magazine;
-	[SyncVar] bool m_Reloading = false;
-	Transform m_FirePosition;
-	float m_ElapsedShootTime = 0f;
+	[SerializeField] [SyncVar (hook = "OnMagazineChanged")] protected int m_Magazine;
+	[SyncVar] protected bool m_Reloading = false;
+	protected Transform m_FirePosition;
+	protected float m_ElapsedShootTime = 0f;
 
 	public Transform FirePosition{
 		get { return m_FirePosition; }
@@ -52,19 +56,23 @@ public class PlayerWeapon : NetworkBehaviour {
 
 	//[ServerCallback]
 	void Start () {
+		m_ShotEffects = GetComponentInChildren<ShotEffects>();
 		OnAmmoChanged(m_MaxAmmo - m_MaxMagazine);
 		OnMagazineChanged(m_MaxMagazine);
     }
 
 	[ServerCallback]
 	void OnEnable(){
+		AudioSource audio = transform.GetComponentInParent<AudioSource>();
+		m_AudioSource = audio;
+
 		//Update UI
 		OnAmmoChanged(m_Ammo);
 		OnMagazineChanged(m_Magazine);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		if(!BelongsToLocalPlayer) return;
 
 		m_ElapsedShootTime += Time.deltaTime;
@@ -76,10 +84,6 @@ public class PlayerWeapon : NetworkBehaviour {
 		if(Input.GetButtonDown("Reload") && !m_Reloading && m_Magazine < MaxMagazine){
 			CmdStartReload();
 		}
-
-		/*if(BelongsToLocalPlayer){
-			PlayerUI.Instance.SetAmmo(m_Magazine, m_Ammo);
-		}*/
 	}
 
 	IEnumerator Reload_Coroutine(){
@@ -99,7 +103,7 @@ public class PlayerWeapon : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdStartReload(){
+	protected void CmdStartReload(){
 		//TODO: Reload animation
 		StartCoroutine(Reload_Coroutine());
 		RpcProcessReloadEffect();
@@ -116,9 +120,8 @@ public class PlayerWeapon : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdFireShot(Vector3 pos, Vector3 direction){
+	public virtual void CmdFireShot(Vector3 pos, Vector3 direction){
 		Magazine--;
-		Debug.Log("Setting magazine to: " + Magazine + " on weapon: " + WeaponName);
 		
 		RaycastHit hit;
 		Ray ray = new Ray(pos, direction);
@@ -138,15 +141,13 @@ public class PlayerWeapon : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcProcessShotEffects(bool hit, Vector3 point){
-		//m_PlayerWeapons.CurrenShotEffect.PlayShotEffects();
-		//if(hit)
-		//	m_PlayerWeapons.CurrenShotEffect.PlayImpactEffect(point);
+		m_ShotEffects.PlayShotEffects();
 	}
 	
 	[ClientRpc]
 	void RpcProcessReloadEffect(){
-		//m_AudioSource.clip = m_ReloadClip;
-		//m_AudioSource.Play();
+		m_AudioSource.clip = m_ReloadClip;
+		m_AudioSource.Play();
 	}
 
 	void OnAmmoChanged(int value){
