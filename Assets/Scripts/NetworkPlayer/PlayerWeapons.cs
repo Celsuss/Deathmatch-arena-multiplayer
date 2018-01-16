@@ -34,7 +34,7 @@ public class PlayerWeapons : NetworkBehaviour {
 
 	IEnumerator AddStartingWeapon_Coroutine(){
 		// Hack because RPC methods dont work at the start.
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.3f);
 
 		CmdAddWeapon(m_StartingWeapon.gameObject);
 	}

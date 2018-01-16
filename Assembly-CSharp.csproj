@@ -63,6 +63,8 @@
      <Compile Include="Assets\Scripts\BotSpawner.cs" />
      <Compile Include="Assets\Scripts\Debug\DebugFPSCounter.cs" />
      <Compile Include="Assets\Scripts\LookAtCamera.cs" />
+     <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\NetworkObjectsSpawner.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\NetworkPlayer.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\PlayerCrouch.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\PlayerHealth.cs" />

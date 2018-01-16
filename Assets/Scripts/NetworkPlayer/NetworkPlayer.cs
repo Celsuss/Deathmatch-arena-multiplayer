@@ -29,6 +29,9 @@ public class NetworkPlayer : NetworkBehaviour {
 
 		//Calling hook methods because hook is not called when object is initializing
 		InitializeHooks();
+
+		if(isServer)
+			StartCoroutine(AddPlayerToScoreManager_Coroutine());
 	}
 
 	void InitializeHooks(){
@@ -95,6 +98,18 @@ public class NetworkPlayer : NetworkBehaviour {
 			transform.rotation = spawn.rotation;	
 		}
 		EnablePlayer();
+	}
+
+	// Hack, keep looping until Manager(Clone) is instantiated.
+	IEnumerator AddPlayerToScoreManager_Coroutine(){
+		GameObject obj = GameObject.Find("Manager(Clone)");
+		while(!obj){
+			yield return new WaitForEndOfFrame();
+			obj = GameObject.Find("Manager(Clone)");
+		}
+		
+		ScoreManager score = obj.GetComponent<ScoreManager>();
+		score.CmdAddPlayer(m_PlayerName);
 	}
 
 	void OnNameChanged(string value){
