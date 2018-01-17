@@ -21,6 +21,8 @@ public class PlayerWeapon : NetworkBehaviour {
 	[SyncVar] protected bool m_Reloading = false;
 	protected Transform m_FirePosition;
 	protected float m_ElapsedShootTime = 0f;
+	ScoreManager m_ScoreManager;
+	string m_PlayerName;
 
 	public Transform FirePosition{
 		get { return m_FirePosition; }
@@ -59,6 +61,11 @@ public class PlayerWeapon : NetworkBehaviour {
 		m_ShotEffects = GetComponentInChildren<ShotEffects>();
 		OnAmmoChanged(m_MaxAmmo - m_MaxMagazine);
 		OnMagazineChanged(m_MaxMagazine);
+
+		NetworkPlayer player = GetComponentInParent<NetworkPlayer>();
+		m_PlayerName = player.m_PlayerName;
+
+		FindScoreManager();
     }
 
 	[ServerCallback]
@@ -84,6 +91,14 @@ public class PlayerWeapon : NetworkBehaviour {
 		if(Input.GetButtonDown("Reload") && !m_Reloading && m_Magazine < MaxMagazine){
 			CmdStartReload();
 		}
+	}
+
+	void FindScoreManager(){
+		GameObject obj = GameObject.Find("Manager(Clone)");
+		if(!obj)
+			return;
+
+		m_ScoreManager = obj.GetComponent<ScoreManager>();
 	}
 
 	IEnumerator Reload_Coroutine(){
@@ -132,7 +147,8 @@ public class PlayerWeapon : NetworkBehaviour {
 			PlayerHealth enemy = hit.transform.GetComponent<PlayerHealth>();
 			if(enemy){
 				if(enemy.TakeDamage()) {	// returns true if enemy died
-					//m_Score++;
+					m_ScoreManager.CmdIncrementScore(m_PlayerName);
+					m_ScoreManager.CmdIncrementDeaths(enemy.Player.name);
 				}
 			}
 		}

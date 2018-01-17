@@ -11,6 +11,8 @@ public class PlayerHealth : NetworkBehaviour {
 	public int MaxHealth{ get{ return m_MaxHealth; } }
 	public int Health{ get{ return m_Health; } }
 
+	public NetworkPlayer Player{ get{ return m_Player; }}
+
 	void Awake(){
 		m_Player = GetComponent<NetworkPlayer>();
 	}
@@ -38,6 +40,7 @@ public class PlayerHealth : NetworkBehaviour {
 		m_Health--;
 		died = m_Health <= 0;
 		RpcTakeDamage(died);
+
 		return died;
 	}
 

@@ -21,10 +21,12 @@ public class UIScorePanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetButtonDown("Toggle Score Panel")){
-			if(!m_ScoreManager)
+			if(!m_ScoreManager){
 				FindScoreManager();
-			if(m_ScoreManager)
 				UpdateScoreTexts(m_ScoreManager.PlayersInfo);
+			}
+			// if(m_ScoreManager)
+			// 	UpdateScoreTexts(m_ScoreManager.PlayersInfo);
 
 			m_ScorePanel.SetActive(!m_ScorePanel.activeSelf);
 		}

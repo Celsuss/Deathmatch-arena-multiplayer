@@ -61,7 +61,8 @@ public class ScoreManager : NetworkBehaviour {
 		}
 	}
 
-	public void IncrementScore(string name){
+	[Command]
+	public void CmdIncrementScore(string name){
 		for(int i = 0; i < m_PlayersInfo.Count; ++i){
 			if(m_PlayersInfo[i].Name == name){
 				SPlayerScoreInfo info = m_PlayersInfo[i];
@@ -69,10 +70,13 @@ public class ScoreManager : NetworkBehaviour {
 				m_PlayersInfo[i] = info;
 				break;
 			}
+			if(i == m_PlayersInfo.Count-1)
+				Debug.LogWarning("Can't find player " + name);
 		}
 	}
 
-	public void IncrementDeaths(string name){
+	[Command]
+	public void CmdIncrementDeaths(string name){
 		for(int i = 0; i < m_PlayersInfo.Count; ++i){
 			if(m_PlayersInfo[i].Name == name){
 				SPlayerScoreInfo info = m_PlayersInfo[i];
@@ -80,6 +84,8 @@ public class ScoreManager : NetworkBehaviour {
 				m_PlayersInfo[i] = info;
 				break;
 			}
+			if(i == m_PlayersInfo.Count-1)
+				Debug.LogWarning("Can't find player " + name);
 		}
 	}
 
