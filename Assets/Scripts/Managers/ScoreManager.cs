@@ -52,7 +52,8 @@ public class ScoreManager : NetworkBehaviour {
 		m_PlayersInfo.Add(playerInfo);
 	}
 
-	public void RemovePlayer(string name){
+	[Command]
+	public void CmdRemovePlayer(string name){
 		for(int i = 0; i < m_PlayersInfo.Count; ++i){
 			if(m_PlayersInfo[i].Name == name){
 				m_PlayersInfo.RemoveAt(i);

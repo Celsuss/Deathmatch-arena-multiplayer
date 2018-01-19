@@ -64,6 +64,16 @@
      <Compile Include="Assets\Scripts\Debug\DebugFPSCounter.cs" />
      <Compile Include="Assets\Scripts\LookAtCamera.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyCountdownPanel.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyHook.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyInfoPanel.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyMainMenu.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyManager.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyPlayer.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyPlayerList.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyServerEntry.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyServerList.cs" />
+     <Compile Include="Assets\Scripts\Network\Lobby\LobbyTopPanel.cs" />
      <Compile Include="Assets\Scripts\NetworkObjectsSpawner.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\NetworkPlayer.cs" />
      <Compile Include="Assets\Scripts\NetworkPlayer\PlayerCrouch.cs" />

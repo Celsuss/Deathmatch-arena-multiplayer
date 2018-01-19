@@ -25,8 +25,6 @@ public class UIScorePanel : MonoBehaviour {
 				FindScoreManager();
 				UpdateScoreTexts(m_ScoreManager.PlayersInfo);
 			}
-			// if(m_ScoreManager)
-			// 	UpdateScoreTexts(m_ScoreManager.PlayersInfo);
 
 			m_ScorePanel.SetActive(!m_ScorePanel.activeSelf);
 		}

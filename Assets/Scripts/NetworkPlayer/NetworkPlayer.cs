@@ -13,13 +13,13 @@ public class NetworkPlayer : NetworkBehaviour {
 	[SyncVar (hook="OnNameChanged")] public string m_PlayerName;
 	[SyncVar (hook="OnColorChanged")] public Color m_PlayerColor;
 	[SyncVar] public bool m_IsPlayerLoaded = false;
-
 	[SerializeField] ToggleEvent m_OnToggleShared;
 	[SerializeField] ToggleEvent m_OnToggleLocal;
 	[SerializeField] ToggleEvent m_OnToggleRemote;
 	[SerializeField] float m_RespawnTime = 1f;
 	GameObject m_MainCamera;
 	NetworkAnimator m_Anim;
+	ScoreManager m_ScoreManager;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +32,8 @@ public class NetworkPlayer : NetworkBehaviour {
 
 		if(isServer)
 			StartCoroutine(AddPlayerToScoreManager_Coroutine());
+
+		FindScoreManager();
 	}
 
 	void InitializeHooks(){
@@ -71,6 +73,12 @@ public class NetworkPlayer : NetworkBehaviour {
 		}
 	}
 
+	// void OnPlayerDisconnected(NetworkPlayer player) {
+    //     Debug.Log("Clean up after player " + player);
+    //     //Network.RemoveRPCs(player);
+    //     //Network.DestroyPlayerObjects(player);
+    // }
+
 	// Update is called once per frame
 	void Update () {
 		if(!isLocalPlayer) return;
@@ -90,6 +98,14 @@ public class NetworkPlayer : NetworkBehaviour {
 		DisablePlayer();
 		Invoke("Respawn", m_RespawnTime);
 	}
+
+	[ServerCallback]
+	void OnDestroy() {
+		if(!m_ScoreManager)
+			FindScoreManager();
+
+		m_ScoreManager.CmdRemovePlayer(m_PlayerName);
+    }
 
 	void Respawn(){
 		if(isLocalPlayer){
@@ -121,5 +137,13 @@ public class NetworkPlayer : NetworkBehaviour {
 	void OnColorChanged(Color value){
 		m_PlayerColor = value;
 		GetComponentInChildren<RendererToggler>().ChangeColor(value);
+	}
+
+	void FindScoreManager(){
+		GameObject obj = GameObject.Find("Manager(Clone)");
+		if(!obj)
+			return;
+
+		m_ScoreManager = obj.GetComponent<ScoreManager>();
 	}
 }
