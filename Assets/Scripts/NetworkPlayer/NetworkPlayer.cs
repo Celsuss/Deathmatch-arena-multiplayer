@@ -104,7 +104,8 @@ public class NetworkPlayer : NetworkBehaviour {
 		if(!m_ScoreManager)
 			FindScoreManager();
 
-		m_ScoreManager.CmdRemovePlayer(m_PlayerName);
+		if(m_ScoreManager)
+			m_ScoreManager.CmdRemovePlayer(m_PlayerName);
     }
 
 	void Respawn(){

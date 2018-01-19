@@ -57,7 +57,7 @@ public class PlayerWeapon : NetworkBehaviour {
 	}
 
 	//[ServerCallback]
-	void Start () {
+	protected virtual void Start () {
 		m_ShotEffects = GetComponentInChildren<ShotEffects>();
 		OnAmmoChanged(m_MaxAmmo - m_MaxMagazine);
 		OnMagazineChanged(m_MaxMagazine);
