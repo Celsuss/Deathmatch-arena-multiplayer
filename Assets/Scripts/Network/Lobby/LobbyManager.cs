@@ -38,6 +38,8 @@ namespace Prototype.NetworkLobby
         public Text statusInfo;
         public Text hostInfo;
 
+        public GameObject hostLeftPanel;
+
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
         [HideInInspector]
@@ -61,6 +63,8 @@ namespace Prototype.NetworkLobby
 
             backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
+
+            hostLeftPanel.SetActive(false);
 
             DontDestroyOnLoad(gameObject);
 
@@ -411,6 +415,10 @@ namespace Prototype.NetworkLobby
             Debug.Log("OnClientDisconnect");
             base.OnClientDisconnect(conn);
             ChangeTo(mainMenuPanel);
+            hostLeftPanel.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         public override void OnClientError(NetworkConnection conn, int errorCode)
