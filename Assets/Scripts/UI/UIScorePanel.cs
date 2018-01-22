@@ -20,6 +20,9 @@ public class UIScorePanel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!m_ScorePanel)
+			return;
+
 		if(Input.GetButtonDown("Toggle Score Panel")){
 			if(!m_ScoreManager){
 				FindScoreManager();
@@ -31,6 +34,9 @@ public class UIScorePanel : MonoBehaviour {
 	}
 
 	public void UpdateScoreTexts(SyncListPlayerScoreInfo playerInfo){
+		if(!m_NamesText ||!m_ScoreText || !m_DeathsText)
+			return;
+
 		m_NamesText.text = "";
 		m_ScoreText.text = "";
 		m_DeathsText.text = "";

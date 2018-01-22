@@ -6,7 +6,6 @@ using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
 
-
 namespace Prototype.NetworkLobby
 {
     public class LobbyManager : NetworkLobbyManager 
@@ -14,7 +13,6 @@ namespace Prototype.NetworkLobby
         static short MsgKicked = MsgType.Highest + 1;
 
         static public LobbyManager s_Singleton;
-
 
         [Header("Unity UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
@@ -39,6 +37,10 @@ namespace Prototype.NetworkLobby
         public Text hostInfo;
 
         public GameObject hostLeftPanel;
+        public Text gameModeInfo;
+        public Dropdown gameModeDropdown;
+
+        [SerializeField] ScoreManager scoreManager;
 
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
@@ -54,6 +56,7 @@ namespace Prototype.NetworkLobby
         protected ulong _currentMatchID;
 
         protected LobbyHook _lobbyHooks;
+        eGameMode _gameMode;
 
         void Start()
         {
@@ -243,6 +246,8 @@ namespace Prototype.NetworkLobby
             ChangeTo(lobbyPanel);
             backDelegate = StopHostClbk;
             SetServerInfo("Hosting", networkAddress);
+
+            //CreateScoreManager();
         }
 
 		public override void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo)
@@ -271,6 +276,19 @@ namespace Prototype.NetworkLobby
                 localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
             addPlayerButton.SetActive(localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
+        }
+
+        // ------------------ Lobby managing -------------------
+
+        void CreateScoreManager(){
+            GameObject obj = scoreManager.gameObject;
+			obj = NetworkBehaviour.Instantiate(obj);
+			NetworkServer.Spawn(obj);
+        }
+
+        public void OnLobbyGameModeChanged(){
+            _gameMode = (eGameMode)gameModeDropdown.value;
+            scoreManager.GameMode = (eGameMode)gameModeDropdown.value;
         }
 
         // ----------------- Server callbacks ------------------
@@ -406,6 +424,14 @@ namespace Prototype.NetworkLobby
                 ChangeTo(lobbyPanel);
                 backDelegate = StopClientClbk;
                 SetServerInfo("Client", networkAddress);
+
+                gameModeDropdown.gameObject.SetActive(false);
+            }
+            else
+            {//set only host objects to active
+                CreateScoreManager();
+
+                gameModeDropdown.gameObject.SetActive(true);
             }
         }
 
