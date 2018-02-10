@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -46,6 +47,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         float m_ForwardAmount;
         float m_UpwardAmount;
         PlayerCrouch m_PlayerCrouch;
+        ScoreManager m_ScoreManager;
 
         // Use this for initialization
         private void Start()
@@ -65,12 +67,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_ForwardAmount = 0f;
             m_UpwardAmount = 0f;
             m_PlayerCrouch = GetComponent<PlayerCrouch>();
+
+            GameObject obj = GameObject.Find("Manager(Clone)");
+            m_ScoreManager = obj.GetComponent<ScoreManager>();
+            Assert.IsNotNull(m_ScoreManager);
         }
 
 
         // Update is called once per frame
         private void Update()
         {
+            if(m_ScoreManager.GameOver)
+                return;
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -104,6 +113,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if(m_ScoreManager.GameOver){
+                if(m_MouseLook.lockCursor)
+                    m_MouseLook.SetCursorLock(false);
+                //enabled = false;
+                return;
+            }
+
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at

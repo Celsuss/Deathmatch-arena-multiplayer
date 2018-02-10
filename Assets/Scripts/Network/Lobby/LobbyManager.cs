@@ -463,5 +463,16 @@ namespace Prototype.NetworkLobby
         //     //conn.playerControllers[0].gameObject
         //     //NetworkServer.DestroyPlayersForConnection( conn );
         // }
+
+        public void LoadLobbyScene(){      
+            topPanel.gameObject.SetActive(true);
+            mainMenuPanel.gameObject.SetActive(true);
+
+            Network.Disconnect();
+            NetworkClient.ShutdownAll();
+            MasterServer.UnregisterHost();
+
+            SceneManager.LoadScene(0);
+        }
     }
 }

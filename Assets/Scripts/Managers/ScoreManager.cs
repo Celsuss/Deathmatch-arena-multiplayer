@@ -27,6 +27,7 @@ public class SyncListPlayerScoreInfo : SyncListStruct<SPlayerScoreInfo> {}
 public class ScoreManager : NetworkBehaviour {
 
 	public eGameMode GameMode{ get{ return m_GameMode; } set{ m_GameMode = value; }}
+	public bool GameOver { get{ return m_GameOver; }}
 
 	public SyncListPlayerScoreInfo PlayersInfo{ get{ return m_PlayersInfo; }}
 	SyncListPlayerScoreInfo m_PlayersInfo = new SyncListPlayerScoreInfo();
@@ -50,8 +51,8 @@ public class ScoreManager : NetworkBehaviour {
 		if(!m_EndGamePanel)
 			Debug.Log("Can't find end game panel");
 
-		m_GameTimer = 120f;
-		//m_GameTimer = 10f;
+		//m_GameTimer = 120f;
+		m_GameTimer = 10f;
 	}
 
 	public override void OnStartClient(){
@@ -105,16 +106,17 @@ public class ScoreManager : NetworkBehaviour {
 		if(m <= 0 && s <= 0){
 			m = 0;
 			s = 0;
-			GameOver();	
+			ShowEndGameScreen();	
 		}
 
 		m_TimerText.text = m + ":" + s;
 	}
 
-	void GameOver(){
+	void ShowEndGameScreen(){
 		m_GameOver = true;
-		m_EndGamePanel.SetActive(true);
-		Debug.Log("End Game");
+		m_EndGamePanel.SetActive(true);	
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	[Command]
