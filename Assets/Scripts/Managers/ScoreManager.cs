@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using Prototype.NetworkLobby;
+using UnityEngine.SceneManagement;
 
 public struct SPlayerScoreInfo{
 	public string Name;
@@ -63,6 +64,14 @@ public class ScoreManager : NetworkBehaviour {
 	void Start () {
 		
 	}
+
+	void OnEnable(){
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	void OnDisable(){
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -73,9 +82,11 @@ public class ScoreManager : NetworkBehaviour {
 			}
 		}
 	}
-
-	void OnLevelWasLoaded(int level){
-		if(level != 0){
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+		if(scene.buildIndex == 0){
+			Destroy(gameObject);	
+		}
+		else{
 			LoadScorePanel();
 			LoadTimerText();
 			if(m_GameMode == eGameMode.eTimed){
@@ -83,7 +94,7 @@ public class ScoreManager : NetworkBehaviour {
 				m_bGameTimer = true;
 			}
 		}
-	}
+    }
 
 	void LoadScorePanel(){
 		GameObject obj = GameObject.Find("Score Canvas");

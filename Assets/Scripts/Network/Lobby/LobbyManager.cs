@@ -465,14 +465,11 @@ namespace Prototype.NetworkLobby
         // }
 
         public void LoadLobbyScene(){      
-            topPanel.gameObject.SetActive(true);
-            mainMenuPanel.gameObject.SetActive(true);
-
+            StopHost();
             Network.Disconnect();
-            NetworkClient.ShutdownAll();
-            MasterServer.UnregisterHost();
 
             SceneManager.LoadScene(0);
+            ChangeTo(mainMenuPanel);
         }
     }
 }

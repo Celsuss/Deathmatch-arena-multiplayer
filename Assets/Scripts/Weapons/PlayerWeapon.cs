@@ -21,7 +21,7 @@ public class PlayerWeapon : NetworkBehaviour {
 	[SyncVar] protected bool m_Reloading = false;
 	protected Transform m_FirePosition;
 	protected float m_ElapsedShootTime = 0f;
-	ScoreManager m_ScoreManager;
+	protected ScoreManager m_ScoreManager;
 	string m_PlayerName;
 
 	public Transform FirePosition{
@@ -80,7 +80,7 @@ public class PlayerWeapon : NetworkBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		if(!BelongsToLocalPlayer) return;
+		if(!BelongsToLocalPlayer || m_ScoreManager.GameOver) return;
 
 		m_ElapsedShootTime += Time.deltaTime;
 		if(Input.GetButtonDown("Fire1") && m_ElapsedShootTime > ShootCooldown && !m_Reloading && m_Magazine > 0){

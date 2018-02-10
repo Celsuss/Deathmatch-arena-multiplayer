@@ -7,7 +7,7 @@ public class AutomaticWeapon : PlayerWeapon {
 	
 	// Update is called once per frame
 	protected override void Update () {
-		if(!BelongsToLocalPlayer) return;
+		if(!BelongsToLocalPlayer || m_ScoreManager.GameOver) return;
 
 		m_ElapsedShootTime += Time.deltaTime;
 		if(Input.GetButton("Fire1") && m_ElapsedShootTime > ShootCooldown && !m_Reloading && m_Magazine > 0){

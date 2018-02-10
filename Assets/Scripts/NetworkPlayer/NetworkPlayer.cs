@@ -99,12 +99,12 @@ public class NetworkPlayer : NetworkBehaviour {
 		Invoke("Respawn", m_RespawnTime);
 	}
 
-	[ServerCallback]
+	//[ServerCallback]
 	void OnDestroy() {
 		if(!m_ScoreManager)
 			FindScoreManager();
 
-		if(m_ScoreManager)
+		if(m_ScoreManager && !m_ScoreManager.GameOver)
 			m_ScoreManager.CmdRemovePlayer(m_PlayerName);
     }
 
