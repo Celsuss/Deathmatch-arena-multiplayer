@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 3}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -41,7 +41,7 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 681, y: 492}
+  m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 1
   controlID: 9
@@ -129,7 +129,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 987
-  m_MinSize: {x: 681, y: 492}
+  m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
   controlID: 10
@@ -153,7 +153,7 @@ MonoBehaviour:
     y: 0
     width: 1576
     height: 987
-  m_MinSize: {x: 404, y: 492}
+  m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
   controlID: 11
@@ -177,8 +177,8 @@ MonoBehaviour:
     y: 0
     width: 1576
     height: 649
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
   controlID: 12
 --- !u!114 &9
@@ -390,28 +390,28 @@ MonoBehaviour:
     height: 628
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a42af3ff
-    m_LastClickedID: -841052
-    m_ExpandedIDs: de2cf3ff182ff3ffb244f3fff64df3ffa099f3ff20a6f3ff64aff3ff70bff3ff72bff3ffaac1f3ff06c2f3ffe4c3f3ff74dcf3ff76dcf3ffaedef3ff0adff3ff4adff3ffaa02f4ffac02f4ffe404f4ff4005f4ff8005f4ffd01df4ffde27f4ff426df4ff5072f4ff5272f4ff8a74f4ffe674f4ffc476f4fff6edf4fffeedf4ff8848f5ff8a48f5ffc24af5ff4c51f5ffc857f5ff5ec8f6ff60c8f6ff62e1f6ff16edf6ff80f8f6ff6a16f7ff8e24f7ffaa2ef7ff883bf9ff963bf9ffa43bf9ffc43bf9ff0643f9ffe040faffee40fafffc40faff1c41faff7448fafff47efaff027ffaff107ffaff307ffaff7286faff8acdfaff98cdfaffa6cdfaffc6cdfaff08d5faff6455fbff1e56fbff3c5ffbff425ffbff2a91fbffe291fbff009bfbff069bfbffb4bcfbff6ebdfbff8cc6fbff92c6fbff6c01fcff2402fcff420bfcff480bfcff6a9afcff6c9afcff04edfcffbcedfcffdaf6fcffe0f6fcffa22afdff5a2bfdff7834fdff7e34fdff6665fdff9471fdff4c72fdff6a7bfdff707bfdff1ca3fdffd4a3fdfff2acfdfff8acfdff52f6fdff0af7fdff2800feff2e00feff442dfefffc2dfeff1a37feff2037feff987effffd287ffff8a88ffffa891ffffae91ffff00b7ffffb8b7ffffd6c0ffffdcc0ffff3ee9fffff6e9ffff14f3ffff1af3ffff1afcfffff4ffffff000000001cf7010014590200540c0300d20c0300540d03001e87040052eb0400ae700500
+    m_SelectedIDs: ec7e0000
+    m_LastClickedID: 32492
+    m_ExpandedIDs: a0afffffb6b7ffff70b8ffff22b9ffff32b9ffff66b9ffffd2ccffff84cdffff94cdffff66cfffff14f3ffff48f3ffff1afcffff000000007a780000ec7e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Score Canvas
-      m_OriginalName: Score Canvas
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -725514
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
   m_ExpandedScenes:
-  - GameLobby
+  - GameArena
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -447,9 +447,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 661, y: 320.81335, z: 0}
+    m_Target: {x: 856.3259, y: 324.32144, z: -31.044922}
     speed: 2
-    m_Value: {x: 661, y: 320.81335, z: 0}
+    m_Value: {x: 856.3259, y: 324.32144, z: -31.044922}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -472,13 +472,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.05498555, y: 0.13321267, z: -0.0074010757, w: -0.98953336}
+    m_Target: {x: -0.083534375, y: 0.0943415, z: -0.00794317, w: -0.99199724}
     speed: 2
-    m_Value: {x: -0.05498555, y: 0.13321267, z: -0.0074010757, w: -0.98953336}
+    m_Value: {x: -0.08353437, y: 0.094341494, z: -0.00794317, w: -0.9919972}
   m_Size:
-    m_Target: 965.41675
+    m_Target: 794.46625
     speed: 2
-    m_Value: 965.41675
+    m_Value: 794.46625
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -590,10 +590,10 @@ MonoBehaviour:
   m_LastProjectPath: D:\Github\Deathmatch arena multiplayer
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 51}
-    m_SelectedIDs: a02a0000
-    m_LastClickedID: 10912
-    m_ExpandedIDs: 00000000ce280000bc2b0000da2e000028320000ba320000ea32000026330000be360000323900007a3c0000c4430000c6430000c8430000ca430000cc430000ce430000d043000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 136}
+    m_SelectedIDs: a22a0000
+    m_LastClickedID: 10914
+    m_ExpandedIDs: 00000000d0280000d02b0000ee2e00003c320000ce320000fe3200003c330000d436000048390000923c0000f0440000f2440000f4440000f6440000f8440000fa440000fc44000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -621,7 +621,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ce280000da2e000028320000ba320000ea32000026330000be360000323900007a3c0000c4430000c6430000c8430000ca430000cc430000ce430000d0430000
+    m_ExpandedIDs: 00000000d0280000d02b0000ee2e00003c320000ce320000fe3200003c330000d436000048390000923c0000f0440000f2440000f4440000f6440000f8440000fa440000fc440000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 90490000c03a000014010000d0250000b8250000d6230000dc230000c6230000ba7cfdff704d0000d02300007a240000802700009424000048240000e8230000685c000068230000be240000e4730000607900009a790000fc5000000cf9f8ff94b3f8ff809f0000743ff8ffba240000605000002e480000463000005a2600000c310000d23400004e260000d6340000d035000098270000d23500003a2c0000d6350000c03800003a380000ec3500000638000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

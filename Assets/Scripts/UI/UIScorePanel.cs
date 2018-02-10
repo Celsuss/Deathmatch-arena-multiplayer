@@ -17,6 +17,12 @@ public class UIScorePanel : MonoBehaviour {
 	void Start () {
 
 	}
+
+	void Awake () {
+		FindScoreManager();
+		if(m_ScoreManager)
+			UpdateScoreTexts(m_ScoreManager.PlayersInfo);
+	}
 	
 	// Update is called once per frame
 	void Update () {
