@@ -464,9 +464,12 @@ namespace Prototype.NetworkLobby
         //     //NetworkServer.DestroyPlayersForConnection( conn );
         // }
 
-        public void LoadLobbyScene(){      
-            StopHost();
+        public void LoadLobbyScene(){
             Network.Disconnect();
+            MasterServer.UnregisterHost();
+            
+            StopClient();
+            StopHost();
 
             SceneManager.LoadScene(0);
             ChangeTo(mainMenuPanel);
