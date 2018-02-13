@@ -88,6 +88,7 @@
      <Compile Include="Assets\Scripts\Pickups\PickupHealth.cs" />
      <Compile Include="Assets\Scripts\Pickups\PickupNetworkManager.cs" />
      <Compile Include="Assets\Scripts\Pickups\PickupWeapon.cs" />
+     <Compile Include="Assets\Scripts\Pickups\SpawnPickup.cs" />
      <Compile Include="Assets\Scripts\RendererToggler.cs" />
      <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\ShotEffects.cs" />

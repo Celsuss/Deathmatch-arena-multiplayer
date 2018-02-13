@@ -53,7 +53,8 @@ public class ScoreManager : NetworkBehaviour {
 			Debug.Log("Can't find end game panel");
 
 		//m_GameTimer = 120f;
-		m_GameTimer = 10f;
+		//m_GameTimer = 10f;
+		m_GameTimer = 240f;
 	}
 
 	public override void OnStartClient(){
