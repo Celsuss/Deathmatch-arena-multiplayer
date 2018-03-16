@@ -5,7 +5,7 @@ using UnityEngine;
 public class RendererToggler : MonoBehaviour {
 
 	[SerializeField] float m_TurnOnDelay = .1f;
-    [SerializeField] float m_TurnOffDelay = 3.5f;	//Time for death animation
+    [SerializeField] float m_TurnOffDelay = .1f;   	// Time for death animation
     [SerializeField] bool m_EnabledOnLoad = false;
 
     Renderer[] m_Renderers;

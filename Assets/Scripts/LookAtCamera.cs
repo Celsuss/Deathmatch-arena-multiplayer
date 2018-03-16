@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class LookAtCamera : MonoBehaviour {
 
@@ -8,8 +9,9 @@ public class LookAtCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		m_Camera = Camera.main.transform;	
-	}
+		m_Camera = Camera.main.transform;
+        Assert.IsNotNull(m_Camera);
+    }
 
 	void LateUpdate(){
 		if(!m_Camera) return;
